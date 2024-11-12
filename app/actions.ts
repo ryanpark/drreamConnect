@@ -130,15 +130,15 @@ export const signOutAction = async () => {
 };
 
 export const signUpFacebookAction = async () => {
-  console.log("signUpFacebookAction");
   const supabase = await createClient();
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "facebook",
+    options: {
+      // todo : replace local env with prod env
+      redirectTo: "http://localhost:3000/auth/callback",
+    },
   });
-  if (data) {
-    console.log(data);
-  }
-  if (error) {
-    console.log(error);
+  if (data.url) {
+    redirect(data.url); // use the redirect API for your server framework
   }
 };

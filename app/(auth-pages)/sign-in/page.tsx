@@ -44,6 +44,14 @@ export default async function Login(props: { searchParams: Promise<Message> }) {
           <SubmitButton pendingText="Signing In..." formAction={signInAction}>
             Sign in
           </SubmitButton>
+          {/* Facebook Sign-Up Button */}
+          <Button
+            onClick={signUpFacebookAction}
+            className="mt-4"
+            variant="outline"
+          >
+            Sign up with Facebook
+          </Button>
           <FormMessage message={searchParams} />
         </div>
       </form>
