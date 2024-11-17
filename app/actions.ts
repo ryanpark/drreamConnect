@@ -5,6 +5,58 @@ import { createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
+export const saveDiary = async (formData: FormData) => {
+  const dream = formData.get("dream")?.toString();
+  const title = formData.get("title")?.toString();
+
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
+
+  const email = user?.email;
+
+  const { data, error } = await supabase
+    .from("dreams")
+    .upsert([{ content: dream, email: email, title: title, date: new Date() }])
+    .select();
+
+  if (error) {
+    throw new Error(`Failed to save dream: ${error.message}`);
+  } else {
+    console.log(data);
+  }
+};
+
+export const saveNickName = async (formData: FormData) => {
+  const nickName = formData.get("nickName")?.toString();
+
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const email = user?.email || null;
+
+  const { data, error } = await supabase
+    .from("profile")
+    .upsert({ nick_name: nickName || "nick name", email: email })
+    .select();
+
+  if (error) {
+    console.error(error.code + " " + error.message);
+  } else {
+    return encodedRedirect(
+      "success",
+      "/sign-up",
+      "Thanks for choose Nick Name !"
+    );
+  }
+};
+
 export const signUpAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
   const password = formData.get("password")?.toString();
