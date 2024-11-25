@@ -1,9 +1,8 @@
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
-import { SubmitButton } from "@/components/submit-button";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { saveDiary } from "@/app/actions";
+import DreamLists from "@/components/diary/DreamLists";
+import DiaryForm from "@/components/diary/DiaryForm";
 
 export default async function Diary() {
   const supabase = await createClient();
@@ -11,6 +10,11 @@ export default async function Diary() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
+
+  const { data: dreams, error } = await supabase
+    .from("dreams")
+    .select("*")
+    .eq("email", user?.email);
 
   if (!user) {
     return redirect("/sign-in");
@@ -22,20 +26,11 @@ export default async function Diary() {
         <div className="">
           <h1>Dream Diary</h1>
 
-          <form className="flex-1 flex flex-col min-w-64">
-            <h1 className="text-2xl font-medium">Write your dream</h1>
-
-            <div className="flex flex-col gap-2 [&>input]:mb-3 mt-8">
-              <Label htmlFor="content">dream</Label>
-              <Input name="title" placeholder="title" />
-              <textarea name="dream" placeholder="write your dream" />
-
-              <SubmitButton pendingText="Saving..." formAction={saveDiary}>
-                Submit
-              </SubmitButton>
-              {/* Facebook Sign-Up Button */}
-            </div>
-          </form>
+          <DreamLists dreams={dreams ?? []} />
+          <div className="flex flex-col gap-2 [&>input]:mb-3 mt-8">
+            <Label htmlFor="content">dream</Label>
+            <DiaryForm />
+          </div>
         </div>
       </div>
     </div>

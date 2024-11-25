@@ -5,10 +5,12 @@ import { createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
-export const saveDiary = async (formData: FormData) => {
-  const dream = formData.get("dream")?.toString();
-  const title = formData.get("title")?.toString();
+interface saveDiaryTypes {
+  title: string;
+  content: string;
+}
 
+export const saveDiary = async ({ title, content }: saveDiaryTypes) => {
   const supabase = await createClient();
 
   const {
@@ -20,7 +22,9 @@ export const saveDiary = async (formData: FormData) => {
 
   const { data, error } = await supabase
     .from("dreams")
-    .upsert([{ content: dream, email: email, title: title, date: new Date() }])
+    .upsert([
+      { content: content, email: email, title: title, date: new Date() },
+    ])
     .select();
 
   if (error) {
