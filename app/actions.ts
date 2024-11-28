@@ -8,9 +8,10 @@ import { redirect } from "next/navigation";
 interface saveDiaryTypes {
   title: string;
   content: string;
+  date: object | undefined;
 }
 
-export const saveDiary = async ({ title, content }: saveDiaryTypes) => {
+export const saveDiary = async ({ title, content, date }: saveDiaryTypes) => {
   const supabase = await createClient();
 
   const {
@@ -23,14 +24,20 @@ export const saveDiary = async ({ title, content }: saveDiaryTypes) => {
   const { data, error } = await supabase
     .from("dreams")
     .upsert([
-      { content: content, email: email, title: title, date: new Date() },
+      {
+        content: content,
+        email: email,
+        title: title,
+        date: new Date(),
+        dreamDate: date,
+      },
     ])
     .select();
 
   if (error) {
     throw new Error(`Failed to save dream: ${error.message}`);
   } else {
-    console.log(data);
+    return encodedRedirect("success", "/diary", "save your dream");
   }
 };
 

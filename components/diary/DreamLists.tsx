@@ -2,6 +2,7 @@ interface DreamTypes {
   title: string;
   date: Date | null;
   content: string;
+  dreamDate: Date | null;
 }
 
 interface DreamListsProps {
@@ -14,11 +15,12 @@ export default function DreamLists({ dreams }: DreamListsProps) {
   }
 
   const renderDreams = dreams?.map((dream: DreamTypes) => {
-    const { title, date, content } = dream;
+    const { title, date, content, dreamDate } = dream;
     return (
       <div className="border-b p-4" key={dream.content}>
         <div> {title ?? "title"} </div>
-        <div> {date?.toString()} </div>
+        <div> Today: {date?.toString()} </div>
+        <div> Dream day: {dreamDate?.toString()}</div>
         <div dangerouslySetInnerHTML={{ __html: content }} />
       </div>
     );

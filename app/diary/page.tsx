@@ -14,7 +14,8 @@ export default async function Diary() {
   const { data: dreams, error } = await supabase
     .from("dreams")
     .select("*")
-    .eq("email", user?.email);
+    .eq("email", user?.email)
+    .order("created_at", { ascending: false });
 
   if (!user) {
     return redirect("/sign-in");
@@ -25,11 +26,10 @@ export default async function Diary() {
       <div className="w-full">
         <div className="">
           <h1>Dream Diary</h1>
-
+          <DiaryForm />
           <DreamLists dreams={dreams ?? []} />
           <div className="flex flex-col gap-2 [&>input]:mb-3 mt-8">
             <Label htmlFor="content">dream</Label>
-            <DiaryForm />
           </div>
         </div>
       </div>
