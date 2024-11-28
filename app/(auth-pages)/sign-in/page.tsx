@@ -1,4 +1,8 @@
-import { signInAction, signUpFacebookAction } from "@/app/actions";
+import {
+  signInAction,
+  signUpFacebookAction,
+  signUpGoogleAction,
+} from "@/app/actions";
 import { FormMessage, Message } from "@/components/form-message";
 import { SubmitButton } from "@/components/submit-button";
 import { Input } from "@/components/ui/input";
@@ -51,6 +55,13 @@ export default async function Login(props: { searchParams: Promise<Message> }) {
             variant="outline"
           >
             Sign up with Facebook
+          </Button>
+          <Button
+            onClick={signUpGoogleAction}
+            className="mt-4"
+            variant="outline"
+          >
+            Sign up with Google
           </Button>
           <FormMessage message={searchParams} />
         </div>
