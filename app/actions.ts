@@ -198,3 +198,17 @@ export const signUpFacebookAction = async () => {
     redirect(data.url); // use the redirect API for your server framework
   }
 };
+
+export const signUpGoogleAction = async () => {
+  const supabase = await createClient();
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      // todo : replace local env with prod env
+      redirectTo: "http://localhost:3000/auth/callback",
+    },
+  });
+  if (data.url) {
+    redirect(data.url); // use the redirect API for your server framework
+  }
+};
