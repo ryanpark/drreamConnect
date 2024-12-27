@@ -1,12 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useTransition, ChangeEvent } from "react";
 import { SubmitButton } from "@/components/submit-button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import TipTap from "@/components/Tiptap";
-import { saveDiary } from "@/app/actions";
+import { saveDiary, uploadImage } from "@/app/actions";
 import Datepicker from "tailwind-datepicker-react";
+import { convertBlobUrlToFile } from "@/utils/converToBlob";
 
 interface IOptions {
   inputDateFormatProp?: {
@@ -17,7 +18,6 @@ interface IOptions {
 }
 
 const options = {
-  title: "Demo Title",
   autoHide: true,
   todayBtn: false,
   clearBtn: true,
@@ -63,6 +63,13 @@ export default function DiaryForm() {
   });
 
   const [show, setShow] = useState(false);
+
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
+  const [isPending, startTransition] = useTransition();
+  const [fileNames, setFileNames] = useState<string[]>([]);
+
+  const imageInputRef = useRef<HTMLInputElement>(null);
+
   const handleChange = (selectedDate: Date) => {
     setDate(selectedDate);
   };
@@ -70,28 +77,89 @@ export default function DiaryForm() {
     setShow(state);
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const title = formData.get("title") as string;
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const filesArray = Array.from(e.target.files);
+      const newImageUrls = filesArray.map((file) => URL.createObjectURL(file));
 
-    const newErrors = {
-      date: !date,
-      title: !title.trim(),
-      content: !content.trim(),
-    };
-
-    setErrors(newErrors);
-    console.log(date);
-    console.log(errors);
-    if (Object.values(newErrors).some((hasError) => hasError)) {
-      return;
+      setImageUrls([...imageUrls, ...newImageUrls]);
     }
 
-    await saveDiary({ title, content, date });
+    const file = e.target.files?.[0];
+
+    if (file) {
+      const { name } = file;
+      setFileNames([...fileNames, `${name}`]);
+    }
   };
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (isPending) return; // Prevent duplicate submissions
+
+    try {
+      const formData = new FormData(event.currentTarget);
+      const title = formData.get("title") as string;
+
+      const newErrors = {
+        date: !date,
+        title: !title.trim(),
+        content: !content.trim(),
+      };
+
+      setErrors(newErrors);
+
+      if (Object.values(newErrors).some((hasError) => hasError)) {
+        return;
+      }
+
+      const diaryResponse = await saveDiary({
+        title,
+        content,
+        date,
+        imageUrls,
+      });
+
+      if (!diaryResponse) {
+        console.error("Failed to save diary entry");
+        return;
+      }
+    } finally {
+      setFileNames([]);
+      setImageUrls([]);
+      (document.getElementById("dreamForm") as HTMLFormElement)?.reset();
+    }
+  };
+
+  const handleClickUploadImagesButton = async () => {
+    startTransition(async () => {
+      let urls = [];
+      for (const url of imageUrls) {
+        const imageFile = await convertBlobUrlToFile(url);
+
+        const { imageUrl, error } = await uploadImage({
+          file: imageFile,
+          bucket: "dream-images",
+        });
+
+        if (error) {
+          console.error(error);
+          return;
+        }
+
+        urls.push(imageUrl);
+      }
+      setImageUrls(urls);
+    });
+  };
+
   return (
-    <form className="flex-1 flex flex-col min-w-64" onSubmit={handleSubmit}>
+    <form
+      className="flex-1 flex flex-col min-w-64"
+      onSubmit={handleSubmit}
+      id="dreamForm"
+    >
       <h1 className="text-2xl font-medium">Write your dream</h1>
       <div className="flex flex-col gap-2 [&>input]:mb-3 mt-8">
         <Datepicker
@@ -117,6 +185,35 @@ export default function DiaryForm() {
             Dream description is required.
           </p>
         )}
+        <p>{fileNames}</p>
+
+        <input
+          type="file"
+          hidden
+          multiple
+          ref={imageInputRef}
+          onChange={handleImageChange}
+          disabled={isPending}
+        />
+
+        <button
+          className="bg-slate-600 py-2 w-40 rounded-lg"
+          onClick={(e) => {
+            e.preventDefault(); // Prevent form submission
+            imageInputRef.current?.click();
+          }}
+          disabled={isPending}
+        >
+          Select Images
+        </button>
+
+        <button
+          onClick={handleClickUploadImagesButton}
+          className="bg-slate-600 py-2 w-40 rounded-lg"
+          disabled={isPending}
+        >
+          {isPending ? "Uploading..." : "Upload Images"}
+        </button>
 
         <SubmitButton pendingText="Saving...">Submit</SubmitButton>
       </div>

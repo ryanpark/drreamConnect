@@ -3,6 +3,7 @@ interface DreamTypes {
   date: Date | null;
   content: string;
   dreamDate: Date | null;
+  images: Array<string>;
 }
 
 interface DreamListsProps {
@@ -15,12 +16,18 @@ export default function DreamLists({ dreams }: DreamListsProps) {
   }
 
   const renderDreams = dreams?.map((dream: DreamTypes) => {
-    const { title, date, content, dreamDate } = dream;
+    const { title, date, content, dreamDate, images } = dream;
+
     return (
       <div className="border-b p-4" key={dream.content}>
         <div> {title ?? "title"} </div>
         <div> Today: {date?.toString()} </div>
         <div> Dream day: {dreamDate?.toString()}</div>
+        <div>
+          {images?.map((image) => {
+            return <img src={image} />;
+          })}
+        </div>
         <div dangerouslySetInnerHTML={{ __html: content }} />
       </div>
     );

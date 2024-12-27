@@ -2,16 +2,48 @@
 
 import { encodedRedirect } from "@/utils/utils";
 import { createClient } from "@/utils/supabase/server";
+import { v4 as uuidv4 } from "uuid";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 interface saveDiaryTypes {
   title: string;
   content: string;
+  imageUrls?: Array<string>;
   date: object | undefined;
 }
 
-export const saveDiary = async ({ title, content, date }: saveDiaryTypes) => {
+interface UploadProps {
+  file: File;
+  bucket: string;
+  folder?: string;
+}
+
+export const uploadImage = async ({ file, bucket, folder }: UploadProps) => {
+  const { storage } = await createClient();
+  const fileExtension = file.name.split(".").pop();
+  const filePath = `${folder ? folder + "/" : ""}${uuidv4()}.${fileExtension}`;
+
+  const { data, error } = await storage.from(bucket).upload(filePath, file);
+
+  if (error) {
+    return { imageUrl: null, error };
+  }
+
+  const imageUrl = `${process.env
+    .NEXT_PUBLIC_SUPABASE_URL!}/storage/v1/object/public/${bucket}/${
+    data?.path
+  }`;
+
+  return { imageUrl, error: false };
+};
+
+export const saveDiary = async ({
+  title,
+  content,
+  date,
+  imageUrls,
+}: saveDiaryTypes) => {
   const supabase = await createClient();
 
   const {
@@ -30,6 +62,7 @@ export const saveDiary = async ({ title, content, date }: saveDiaryTypes) => {
         title: title,
         date: new Date(),
         dreamDate: date,
+        images: imageUrls,
       },
     ])
     .select();

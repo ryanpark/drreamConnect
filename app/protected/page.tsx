@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 
 export default async function ProtectedPage() {
   const supabase = await createClient();
+  const { storage } = await createClient();
 
   const {
     data: { user },
