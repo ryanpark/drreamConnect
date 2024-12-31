@@ -25,7 +25,7 @@ export default function DreamLists({ dreams }: DreamListsProps) {
         <div> Dream day: {dreamDate?.toString()}</div>
         <div>
           {images?.map((image) => {
-            return <img src={image} />;
+            return <img src={image} key={image} />;
           })}
         </div>
         <div dangerouslySetInnerHTML={{ __html: content }} />
