@@ -11,6 +11,7 @@ interface saveDiaryTypes {
   content: string;
   imageUrls?: Array<string>;
   date: object | undefined;
+  tags?: Array<string>;
 }
 
 interface UploadProps {
@@ -43,6 +44,7 @@ export const saveDiary = async ({
   content,
   date,
   imageUrls,
+  tags,
 }: saveDiaryTypes) => {
   const supabase = await createClient();
 
@@ -63,6 +65,7 @@ export const saveDiary = async ({
         date: new Date(),
         dreamDate: date,
         images: imageUrls,
+        tags: tags,
       },
     ])
     .select();

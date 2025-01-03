@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import TipTap from "@/components/Tiptap";
 import { saveDiary, uploadImage } from "@/app/actions";
+import { TagsInput } from "react-tag-input-component";
 import Datepicker from "tailwind-datepicker-react";
 import { convertBlobUrlToFile } from "@/utils/converToBlob";
 
@@ -67,6 +68,7 @@ export default function DiaryForm() {
   const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [isPending, startTransition] = useTransition();
   const [fileNames, setFileNames] = useState<string[]>([]);
+  const [tags, setTags] = useState<string[]>([]);
 
   const imageInputRef = useRef<HTMLInputElement>(null);
 
@@ -119,6 +121,7 @@ export default function DiaryForm() {
         content,
         date,
         imageUrls,
+        tags,
       });
 
       if (!diaryResponse) {
@@ -195,6 +198,15 @@ export default function DiaryForm() {
           onChange={handleImageChange}
           disabled={isPending}
         />
+
+        <pre>{JSON.stringify(tags)}</pre>
+        <TagsInput
+          value={tags}
+          onChange={setTags}
+          name="tags"
+          placeHolder="enter new tag"
+        />
+        <em>press enter or comma to add new tag</em>
 
         <button
           className="bg-slate-600 py-2 w-40 rounded-lg"
