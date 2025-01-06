@@ -1,9 +1,12 @@
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
-
+import { Badge } from "@/components/ui/badge";
 interface DreamType {
   title: string;
   content: string;
+  date: string;
+  tags?: string[];
+  images?: string;
 }
 export default async function Diary() {
   const supabase = await createClient();
@@ -34,17 +37,35 @@ export default async function Diary() {
     () => Math.random() - 0.5
   );
 
+  console.log(shuffledDreams);
   return (
     <div className="flex-1 w-full flex flex-col gap-12">
       <div className="w-full">
         <div className="">
           <h1>Explore Dreams</h1>
           {shuffledDreams.map((dreams: DreamType) => {
-            const { title, content } = dreams;
+            const { title, content, date, tags, images } = dreams;
             return (
-              <div>
+              <div className="p-4">
+                <p>{date}</p>
                 <p>title : {title}</p>
-                <p>content : {content}</p>
+                <p>
+                  content :{" "}
+                  <div dangerouslySetInnerHTML={{ __html: content }} />
+                </p>
+                <div>
+                  {tags?.map((tag, index) => (
+                    <Badge key={index} className="mr-2">
+                      {tag}
+                    </Badge>
+                  ))}
+                </div>
+
+                {images && (
+                  <p>
+                    <img src={images} alt={images} />
+                  </p>
+                )}
               </div>
             );
           })}
