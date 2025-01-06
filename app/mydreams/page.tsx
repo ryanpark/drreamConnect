@@ -1,9 +1,11 @@
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { Label } from "@/components/ui/label";
-import DiaryForm from "@/components/diary/DiaryForm";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import DreamLists from "@/components/diary/DreamLists";
 
-export default async function Diary() {
+export default async function Mydreams() {
   const supabase = await createClient();
 
   const {
@@ -24,8 +26,11 @@ export default async function Diary() {
     <div className="flex-1 w-full flex flex-col gap-12">
       <div className="w-full">
         <div className="">
-          <h1>Dream Diary</h1>
-          <DiaryForm />
+          <h1>My dreams</h1>
+          <Button>
+            <Link href={"/diary"}> Log your dream </Link>
+          </Button>
+          <DreamLists dreams={dreams ?? []} />
           <div className="flex flex-col gap-2 [&>input]:mb-3 mt-8">
             <Label htmlFor="content">dream</Label>
           </div>

@@ -3,8 +3,8 @@ interface DreamTypes {
   date: Date | null;
   content: string;
   dreamDate: Date | null;
-  images: Array<string>;
-  tags: Array<string>;
+  images: string[];
+  tags: string[];
 }
 
 interface DreamListsProps {
@@ -12,9 +12,7 @@ interface DreamListsProps {
 }
 
 export default function DreamLists({ dreams }: DreamListsProps) {
-  if (!dreams || dreams.length === 0) {
-    return <div>No dreams available</div>;
-  }
+  if (!dreams?.length) return <div>No dreams available</div>;
 
   const renderDreams = dreams?.map((dream: DreamTypes) => {
     const { title, date, content, dreamDate, images, tags } = dream;

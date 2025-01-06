@@ -60,7 +60,7 @@ export default async function AuthButton() {
   }
   return user ? (
     <div className="flex items-center gap-4">
-      Hey, {person?.nick_name}!<Link href="/diary">My diary</Link>
+      Hey, {person?.nick_name}!<Link href="/mydreams">My diary</Link>
       <Link href="/dreams">Explore dreams</Link>
       <form action={signOutAction}>
         <Button type="submit" variant={"outline"}>
