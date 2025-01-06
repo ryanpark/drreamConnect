@@ -7,6 +7,7 @@ interface DreamType {
   date: string;
   tags?: string[];
   images?: string;
+  nickname: string;
 }
 export default async function Diary() {
   const supabase = await createClient();
@@ -32,21 +33,20 @@ export default async function Diary() {
       return acc;
     }, {})
   );
-
   const shuffledDreams = (uniqueDreams as DreamType[]).sort(
     () => Math.random() - 0.5
   );
 
-  console.log(shuffledDreams);
   return (
     <div className="flex-1 w-full flex flex-col gap-12">
       <div className="w-full">
         <div className="">
           <h1>Explore Dreams</h1>
           {shuffledDreams.map((dreams: DreamType) => {
-            const { title, content, date, tags, images } = dreams;
+            const { title, content, date, tags, images, nickname } = dreams;
             return (
               <div className="p-4">
+                <p>user: {nickname}</p>
                 <p>{date}</p>
                 <p>title : {title}</p>
                 <p>

@@ -53,14 +53,20 @@ export const saveDiary = async ({
     error: userError,
   } = await supabase.auth.getUser();
 
-  const email = user?.email;
+  const { data: person } = await supabase
+    .from("profile")
+    .select("nick_name")
+    .eq("email", user?.email) // Assuming `user_id` is the foreign key in the `profile` table
+    .single();
+
+  const { nick_name } = person as { nick_name: string };
 
   const { data, error } = await supabase
     .from("dreams")
     .upsert([
       {
         content: content,
-        email: email,
+        nickname: nick_name,
         title: title,
         date: new Date(),
         dreamDate: date,
