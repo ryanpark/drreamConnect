@@ -64,7 +64,7 @@ export default function DiaryForm() {
   });
 
   const [show, setShow] = useState(false);
-
+  const [isSuccess, setIsSuccess] = useState(false);
   const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [isPending, startTransition] = useTransition();
   const [fileNames, setFileNames] = useState<string[]>([]);
@@ -124,10 +124,14 @@ export default function DiaryForm() {
         tags,
       });
 
-      if (!diaryResponse) {
-        console.error("Failed to save diary entry");
-        return;
+      if (diaryResponse?.success) {
+        setIsSuccess(true);
+      } else {
+        setIsSuccess(false); // Error state
       }
+    } catch (error) {
+      console.error("Error while saving diary entry:", error);
+      setIsSuccess(false); // Ensure success is reset if an error occurs
     } finally {
       setFileNames([]);
       setImageUrls([]);
@@ -158,77 +162,89 @@ export default function DiaryForm() {
   };
 
   return (
-    <form
-      className="flex-1 flex flex-col min-w-64"
-      onSubmit={handleSubmit}
-      id="dreamForm"
-    >
-      <h1 className="text-2xl font-medium">Write your dream</h1>
-      <div className="flex flex-col gap-2 [&>input]:mb-3 mt-8">
-        <Datepicker
-          options={options as IOptions}
-          onChange={handleChange}
-          show={show}
-          setShow={handleClose}
-        />
-        {errors.date && (
-          <p className="text-red-500 text-sm mt-1">Please select a date.</p>
-        )}
-        <Label htmlFor="content">Dream</Label>
-        <Input name="title" placeholder="Title" />
-        {errors.title && (
-          <p className="text-red-500 text-sm mt-1">Title is required.</p>
-        )}
-        <TipTap
-          description={"Write your dream description"}
-          onChange={setContent}
-        />
-        {errors.content && (
-          <p className="text-red-500 text-sm mt-1">
-            Dream description is required.
-          </p>
-        )}
-        <p>{fileNames}</p>
-
-        <input
-          type="file"
-          hidden
-          multiple
-          ref={imageInputRef}
-          onChange={handleImageChange}
-          disabled={isPending}
-        />
-
-        <pre>{JSON.stringify(tags)}</pre>
-        <TagsInput
-          value={tags}
-          onChange={setTags}
-          name="tags"
-          placeHolder="enter new tag"
-        />
-        <em>press enter or comma to add new tag</em>
-
-        <button
-          className="bg-slate-600 py-2 w-40 rounded-lg"
-          onClick={(e) => {
-            e.preventDefault(); // Prevent form submission
-            imageInputRef.current?.click();
-          }}
-          disabled={isPending}
+    <>
+      {isSuccess ? (
+        <div className="text-green-500 mb-4">
+          Diary entry saved successfully!
+        </div>
+      ) : (
+        <form
+          className="flex-1 flex flex-col min-w-64"
+          onSubmit={handleSubmit}
+          id="dreamForm"
         >
-          Select Images
-        </button>
+          <h1 className="text-2xl font-medium">Write your dream</h1>
+          <div className="flex flex-col gap-2 [&>input]:mb-3 mt-8">
+            <Datepicker
+              options={options as IOptions}
+              onChange={handleChange}
+              show={show}
+              setShow={handleClose}
+            />
+            {errors.date && (
+              <p className="text-red-500 text-sm mt-1">Please select a date.</p>
+            )}
 
-        <button
-          onClick={handleClickUploadImagesButton}
-          className="bg-slate-600 py-2 w-40 rounded-lg"
-          disabled={isPending}
-        >
-          {isPending ? "Uploading..." : "Upload Images"}
-        </button>
+            <Input name="title" placeholder="Title" />
+            {errors.title && (
+              <p className="text-red-500 text-sm mt-1">Title is required.</p>
+            )}
 
-        <SubmitButton pendingText="Saving...">Submit</SubmitButton>
-      </div>
-    </form>
+            <TipTap
+              description={"Write your dream description"}
+              onChange={setContent}
+            />
+            {errors.content && (
+              <p className="text-red-500 text-sm mt-1">
+                Dream description is required.
+              </p>
+            )}
+
+            <p>{fileNames}</p>
+
+            <input
+              type="file"
+              hidden
+              multiple
+              ref={imageInputRef}
+              onChange={handleImageChange}
+              disabled={isPending}
+            />
+
+            <pre>{JSON.stringify(tags)}</pre>
+            <TagsInput
+              value={tags}
+              onChange={setTags}
+              name="tags"
+              placeHolder="enter new tag"
+            />
+            <em>press enter or comma to add new tag</em>
+
+            <button
+              type="button"
+              className="bg-slate-600 py-2 w-40 rounded-lg"
+              onClick={(e) => {
+                e.preventDefault(); // Prevent form submission
+                imageInputRef.current?.click();
+              }}
+              disabled={isPending}
+            >
+              Select Images
+            </button>
+
+            <button
+              type="button"
+              onClick={handleClickUploadImagesButton}
+              className="bg-slate-600 py-2 w-40 rounded-lg"
+              disabled={isPending}
+            >
+              {isPending ? "Uploading..." : "Upload Images"}
+            </button>
+
+            <SubmitButton pendingText="Saving...">Submit</SubmitButton>
+          </div>
+        </form>
+      )}
+    </>
   );
 }

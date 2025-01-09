@@ -79,7 +79,8 @@ export const saveDiary = async ({
   if (error) {
     throw new Error(`Failed to save dream: ${error.message}`);
   } else {
-    return encodedRedirect("success", "/diary", "save your dream");
+    // return encodedRedirect("success", "/diary", "save your dream");
+    return { success: true, message: "Dream saved successfully!" };
   }
 };
 
