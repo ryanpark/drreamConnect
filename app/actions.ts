@@ -20,6 +20,34 @@ interface UploadProps {
   folder?: string;
 }
 
+export const updateProfile = async (formData: FormData) => {
+  const nickName = formData.get("nickName")?.toString();
+
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const email = user?.email || null;
+
+  if (!email) {
+    throw new Error("User is not authenticated. Cannot update profile.");
+  }
+
+  const { data, error } = await supabase
+    .from("profile")
+    .update({ nick_name: nickName || "nick name" })
+    .eq("email", email)
+    .select();
+
+  if (error) {
+    throw new Error(`Failed to update profile: ${error.message}`);
+  } else {
+    return encodedRedirect("success", "/profile", "Updated Nick Name !");
+  }
+};
+
 export const uploadImage = async ({ file, bucket, folder }: UploadProps) => {
   const { storage } = await createClient();
   const fileExtension = file.name.split(".").pop();
