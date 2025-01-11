@@ -6,7 +6,7 @@ interface UserMetadataProps {
   name: string;
 }
 
-export default async function Profile({ isEditMode }: { isEditMode: boolean }) {
+export default async function Profile() {
   const supabase = await createClient();
 
   const {
