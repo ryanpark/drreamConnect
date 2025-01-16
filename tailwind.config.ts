@@ -18,6 +18,17 @@ const config = {
         "2xl": "1400px",
       },
     },
+    colors: {
+      blue: "#1fb6ff",
+      purple: "#4E1157",
+      pink: "#682626",
+      orange: "#ff7849",
+      green: "#13ce66",
+      yellow: "#FFBB00",
+      "gray-dark": "#273444",
+      gray: "#8492a6",
+      "gray-light": "#d3dce6",
+    },
     extend: {
       colors: {
         border: "hsl(var(--border))",
