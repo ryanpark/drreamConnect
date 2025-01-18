@@ -37,7 +37,9 @@ export const postComments = async (formData: FormData) => {
     .single();
 
   if (fetchError || userError) {
-    throw new Error(`Error fetching existing comments: ${fetchError.message}`);
+    throw new Error(
+      `Error fetching existing comments: ${fetchError?.message || userError?.message}`
+    );
   }
 
   const { data: person } = await supabase
@@ -61,7 +63,7 @@ export const postComments = async (formData: FormData) => {
   if (updateError) {
     throw new Error(`Error updating comments: ${updateError.message}`);
   } else {
-    return encodedRedirect("success", "/dreams", "Updated Nick Name !");
+    return encodedRedirect("success", "/dreams", "Updated comments!");
   }
 };
 
