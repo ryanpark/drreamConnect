@@ -20,6 +20,51 @@ interface UploadProps {
   folder?: string;
 }
 
+export const postComments = async (formData: FormData) => {
+  const supabase = await createClient();
+  const comments = formData.get("comments")?.toString();
+  const id = formData.get("dreamId")?.toString();
+
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
+
+  const { data: existingData, error: fetchError } = await supabase
+    .from("dreams")
+    .select("comments")
+    .eq("id", id)
+    .single();
+
+  if (fetchError || userError) {
+    throw new Error(`Error fetching existing comments: ${fetchError.message}`);
+  }
+
+  const { data: person } = await supabase
+    .from("profile")
+    .select("nick_name")
+    .eq("email", user?.email)
+    .single();
+
+  const { nick_name } = person as { nick_name: string };
+
+  const newComment = { comment: comments, nickname: nick_name };
+  const updatedComments = existingData?.comments
+    ? [...existingData.comments, newComment]
+    : [newComment];
+
+  const { error: updateError } = await supabase
+    .from("dreams")
+    .update({ comments: updatedComments })
+    .eq("id", id);
+
+  if (updateError) {
+    throw new Error(`Error updating comments: ${updateError.message}`);
+  } else {
+    return encodedRedirect("success", "/dreams", "Updated Nick Name !");
+  }
+};
+
 export const updateProfile = async (formData: FormData) => {
   const nickName = formData.get("nickName")?.toString();
 
