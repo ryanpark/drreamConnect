@@ -1,6 +1,10 @@
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
+import { SubmitButton } from "@/components/submit-button";
+import { postComments } from "@/app/actions";
+import { Input } from "@/components/ui/input";
+
 interface DreamType {
   title: string;
   content: string;
@@ -8,7 +12,15 @@ interface DreamType {
   tags?: string[];
   images?: string;
   nickname: string;
+  id: number;
+  comments: CommentType[];
 }
+
+interface CommentType {
+  comment: string;
+  nickname: string;
+}
+
 export default async function Diary() {
   const supabase = await createClient();
 
@@ -43,7 +55,17 @@ export default async function Diary() {
         <div className="">
           <h1>Explore Dreams</h1>
           {shuffledDreams.map((dreams: DreamType) => {
-            const { title, content, date, tags, images, nickname } = dreams;
+            const {
+              title,
+              content,
+              date,
+              tags,
+              images,
+              nickname,
+              id,
+              comments,
+            } = dreams;
+
             return (
               <div className="p-4">
                 <p>user: {nickname}</p>
@@ -60,12 +82,27 @@ export default async function Diary() {
                     </Badge>
                   ))}
                 </div>
-
                 {images && (
                   <p>
                     <img src={images} alt={images} />
                   </p>
                 )}
+                {comments?.map((comment: CommentType) => {
+                  return (
+                    <div>
+                      {comment.comment} , {comment.nickname}
+                    </div>
+                  );
+                })}
+
+                <form>
+                  <Input type="textarea" name="comments" />
+                  <input type="hidden" name="dreamId" value={id} />
+
+                  <SubmitButton formAction={postComments}>
+                    Make comment
+                  </SubmitButton>
+                </form>
               </div>
             );
           })}
