@@ -59,7 +59,7 @@ export default async function AuthButton() {
     );
   }
   return user ? (
-    <div className="flex items-center gap-4">
+    <div className="flex items-center gap-4 text-yellow">
       Hey, {person?.nick_name}!<Link href="/mydreams">My diary</Link>
       <Link href="/dreams">Explore dreams</Link>
       <Link href="/profile">Profile</Link>
@@ -70,7 +70,8 @@ export default async function AuthButton() {
       </form>
     </div>
   ) : (
-    <div className="flex gap-2">
+    <div className="flex gap-2 text-yellow">
+      <Link href="/dreams">Explore dreams</Link>
       <Button
         asChild
         size="sm"

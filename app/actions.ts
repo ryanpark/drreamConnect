@@ -50,6 +50,23 @@ export const postComments = async (formData: FormData) => {
 
   const { nick_name } = person as { nick_name: string };
 
+  // not really sure this one, should it be replace with supabase
+
+  //   const newComment = { comment: comments, nickname: nick_name };
+
+  // const { error: updateError } = await supabase
+  //   .from("dreams")
+  //   .update({
+  //     comments: supabase.fn.array_append("comments", newComment),
+  //   })
+  //   .eq("id", id);
+
+  // if (updateError) {
+  //   throw new Error(`Error updating comments: ${updateError.message}`);
+  // } else {
+  //   return encodedRedirect("success", "/dreams", "Updated comments!");
+  // }
+
   const newComment = { comment: comments, nickname: nick_name };
   const updatedComments = existingData?.comments
     ? [...existingData.comments, newComment]

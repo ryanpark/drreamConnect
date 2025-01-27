@@ -33,19 +33,15 @@ export default async function Diary() {
     .select("*")
     .order("created_at", { ascending: false });
 
-  if (!user) {
-    return redirect("/sign-in");
-  }
-
   const uniqueDreams = Object.values(
-    dreams?.reduce((acc, dream) => {
+    (dreams || []).reduce((acc, dream) => {
       if (!acc[dream.email]) {
         acc[dream.email] = dream;
       }
       return acc;
     }, {})
   );
-  const shuffledDreams = (uniqueDreams as DreamType[]).sort(
+  const shuffledDreams = (uniqueDreams as DreamType[])?.sort(
     () => Math.random() - 0.5
   );
 
