@@ -3,12 +3,12 @@
 import { useState, useRef, useTransition, ChangeEvent } from "react";
 import { SubmitButton } from "@/components/submit-button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import TipTap from "@/components/Tiptap";
 import { saveDiary, uploadImage } from "@/app/actions";
 import { TagsInput } from "react-tag-input-component";
 import Datepicker from "tailwind-datepicker-react";
 import { convertBlobUrlToFile } from "@/utils/converToBlob";
+import ReactQuill from "react-quill-new";
+import "react-quill-new/dist/quill.snow.css";
 
 interface IOptions {
   inputDateFormatProp?: {
@@ -161,6 +161,40 @@ export default function DiaryForm() {
     });
   };
 
+  const quillModules = {
+    toolbar: [
+      [{ header: [1, 2, 3, false] }],
+      ["bold", "italic", "underline", "strike", "blockquote"],
+      [{ list: "ordered" }, { list: "bullet" }],
+      ["link", "image"],
+      [{ align: [] }],
+      [{ color: [] }],
+      ["code-block"],
+      ["clean"],
+    ],
+  };
+
+  const quillFormats = [
+    "header",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "link",
+    "image",
+    "align",
+    "color",
+    "code-block",
+  ];
+
+  const handleEditorChange = (newContent) => {
+    console.log(newContent);
+    setContent(newContent);
+  };
+
   return (
     <>
       {isSuccess ? (
@@ -190,10 +224,14 @@ export default function DiaryForm() {
               <p className="text-red-500 text-sm mt-1">Title is required.</p>
             )}
 
-            <TipTap
-              description={"Write your dream description"}
-              onChange={setContent}
+            <ReactQuill
+              value={content}
+              onChange={handleEditorChange}
+              modules={quillModules}
+              formats={quillFormats}
+              className="w-full h-[70%] mt-10 bg-white"
             />
+
             {errors.content && (
               <p className="text-red-500 text-sm mt-1">
                 Dream description is required.

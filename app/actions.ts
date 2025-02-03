@@ -159,6 +159,7 @@ export const saveDiary = async ({
       {
         content: content,
         nickname: nick_name,
+        email: user?.email,
         title: title,
         date: new Date(),
         dreamDate: date,
