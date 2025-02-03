@@ -190,8 +190,7 @@ export default function DiaryForm() {
     "code-block",
   ];
 
-  const handleEditorChange = (newContent) => {
-    console.log(newContent);
+  const handleEditorChange = (newContent: string) => {
     setContent(newContent);
   };
 
