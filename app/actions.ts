@@ -328,13 +328,17 @@ export const signOutAction = async () => {
   return redirect("/sign-in");
 };
 
+const defaultUrl = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : "http://localhost:3000";
+
 export const signUpFacebookAction = async () => {
   const supabase = await createClient();
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "facebook",
     options: {
       // todo : replace local env with prod env
-      redirectTo: "http://localhost:3000/auth/callback",
+      redirectTo: `${defaultUrl}/auth/callback`,
     },
   });
   if (data.url) {
@@ -348,7 +352,7 @@ export const signUpGoogleAction = async () => {
     provider: "google",
     options: {
       // todo : replace local env with prod env
-      redirectTo: "http://localhost:3000/auth/callback",
+      redirectTo: `${defaultUrl}/auth/callback`,
     },
   });
   if (data.url) {
