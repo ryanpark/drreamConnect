@@ -15,8 +15,9 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "Next.js and Supabase Starter Kit",
-  description: "The fastest way to build apps with Next.js and Supabase",
+  title: "DreamConnect – Explore, Share, and Understand Your Dreams",
+  description:
+    "Discover the hidden meanings behind your dreams with DreamConnect. Keep a private dream journal, connect with a like-minded community, and gain AI-driven insights—all in a secure, privacy-focused environment. Start your dream journey today!",
 };
 
 export default function RootLayout({

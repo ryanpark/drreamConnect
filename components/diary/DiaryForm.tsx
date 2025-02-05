@@ -9,7 +9,8 @@ import Datepicker from "tailwind-datepicker-react";
 import { convertBlobUrlToFile } from "@/utils/converToBlob";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
-
+import { Switch } from "@/components/ui/switch"; // Adjust the import path as needed
+import { Label } from "@/components/ui/label";
 interface IOptions {
   inputDateFormatProp?: {
     year?: "numeric" | "2-digit";
@@ -62,6 +63,8 @@ export default function DiaryForm() {
     title: false,
     content: false,
   });
+
+  const [isPublic, setIsPublic] = useState(false);
 
   const [show, setShow] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -122,6 +125,7 @@ export default function DiaryForm() {
         date,
         imageUrls,
         tags,
+        isPublic,
       });
 
       if (diaryResponse?.success) {
@@ -217,12 +221,10 @@ export default function DiaryForm() {
             {errors.date && (
               <p className="text-red-500 text-sm mt-1">Please select a date.</p>
             )}
-
             <Input name="title" placeholder="Title" />
             {errors.title && (
               <p className="text-red-500 text-sm mt-1">Title is required.</p>
             )}
-
             <ReactQuill
               value={content}
               onChange={handleEditorChange}
@@ -230,15 +232,12 @@ export default function DiaryForm() {
               formats={quillFormats}
               className="w-full h-[70%] mt-10 bg-white"
             />
-
             {errors.content && (
               <p className="text-red-500 text-sm mt-1">
                 Dream description is required.
               </p>
             )}
-
             <p>{fileNames}</p>
-
             <input
               type="file"
               hidden
@@ -247,7 +246,6 @@ export default function DiaryForm() {
               onChange={handleImageChange}
               disabled={isPending}
             />
-
             <pre>{JSON.stringify(tags)}</pre>
             <TagsInput
               value={tags}
@@ -256,7 +254,12 @@ export default function DiaryForm() {
               placeHolder="enter new tag"
             />
             <em>press enter or comma to add new tag</em>
-
+            <Label htmlFor="public-mode">Share Publicly</Label>
+            <Switch
+              id="public-mode"
+              checked={isPublic}
+              onCheckedChange={setIsPublic}
+            />
             <button
               type="button"
               className="bg-slate-600 py-2 w-40 rounded-lg"
@@ -268,7 +271,6 @@ export default function DiaryForm() {
             >
               Select Images
             </button>
-
             <button
               type="button"
               onClick={handleClickUploadImagesButton}
@@ -277,7 +279,6 @@ export default function DiaryForm() {
             >
               {isPending ? "Uploading..." : "Upload Images"}
             </button>
-
             <SubmitButton pendingText="Saving...">Submit</SubmitButton>
           </div>
         </form>
