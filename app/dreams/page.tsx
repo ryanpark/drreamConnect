@@ -1,9 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
-import { redirect } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
-import { SubmitButton } from "@/components/submit-button";
-import { postComments } from "@/app/actions";
-import { Input } from "@/components/ui/input";
+import { Comments } from "@/components/comments/Comments";
 
 interface DreamType {
   title: string;
@@ -31,6 +28,7 @@ export default async function Diary() {
   const { data: dreams, error } = await supabase
     .from("dreams")
     .select("*")
+    .eq("public", true)
     .order("created_at", { ascending: false });
 
   const uniqueDreams = Object.values(
@@ -90,15 +88,7 @@ export default async function Diary() {
                     </div>
                   );
                 })}
-
-                <form>
-                  <Input type="textarea" name="comments" />
-                  <input type="hidden" name="dreamId" value={id} />
-
-                  <SubmitButton formAction={postComments}>
-                    Make comment
-                  </SubmitButton>
-                </form>
+                {user && <Comments id={id} />}
               </div>
             );
           })}
