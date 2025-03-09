@@ -85,6 +85,35 @@ export const postComments = async (formData: FormData) => {
   }
 };
 
+export const updateAvatar = async (formData: FormData) => {
+  const avatar = formData.get("seed")?.toString();
+
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const email = user?.email || null;
+
+  if (!email) {
+    throw new Error("User is not authenticated. Cannot update profile.");
+  }
+
+  const { data, error } = await supabase
+    .from("profile")
+    .update({ avatar: avatar || "John" })
+    .eq("email", email)
+    .select();
+
+  if (error) {
+    throw new Error(`Failed to update profile: ${error.message}`);
+  } else {
+    return encodedRedirect("success", "/profile", "Updated Avatar !");
+  }
+};
+
+
 export const updateProfile = async (formData: FormData) => {
   const nickName = formData.get("nickName")?.toString();
 
@@ -125,9 +154,8 @@ export const uploadImage = async ({ file, bucket, folder }: UploadProps) => {
   }
 
   const imageUrl = `${process.env
-    .NEXT_PUBLIC_SUPABASE_URL!}/storage/v1/object/public/${bucket}/${
-    data?.path
-  }`;
+    .NEXT_PUBLIC_SUPABASE_URL!}/storage/v1/object/public/${bucket}/${data?.path
+    }`;
 
   return { imageUrl, error: false };
 };
@@ -333,7 +361,8 @@ export const signOutAction = async () => {
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
-  : "http://localhost:3000";
+  : "https://localhost:3000";
+
 
 export const signUpFacebookAction = async () => {
   const supabase = await createClient();
