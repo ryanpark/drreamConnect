@@ -230,7 +230,7 @@ export const saveNickName = async (formData: FormData) => {
     return encodedRedirect(
       "success",
       "/sign-up",
-      "Thanks for  Nick Name !"
+      "Thanks for choose Nick Name !"
     );
   }
 };
@@ -370,7 +370,7 @@ export const signUpFacebookAction = async () => {
     provider: "facebook",
     options: {
       // todo : replace local env with prod env
-      redirectTo: `https://localhost:3000/auth/callback`,
+      redirectTo: `${defaultUrl}/auth/callback`,
     },
   });
   if (data.url) {
