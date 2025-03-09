@@ -1,5 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import EditProfile from "@/components/profile/EditProfile";
+import Avatar from '@/components/avatar/Avatar';
 
 interface UserMetadataProps {
   email: string;
@@ -19,13 +20,13 @@ export default async function Profile() {
 
   const { email, name } = user.user_metadata as UserMetadataProps;
 
-  const { data: person } = await supabase
-    .from("profile")
-    .select("nick_name")
-    .eq("email", user?.email)
-    .single();
+  const { data, error } = await supabase
+  .from("profile")
+  .select("nick_name, avatar")
+  .eq("email", user?.email)
+  .single();
 
-  const { nick_name } = person as { nick_name: string };
+  const { nick_name, avatar } = data as { nick_name: string; avatar: string };
 
   return (
     <div className="flex-1 w-full flex flex-col gap-12">
@@ -36,6 +37,7 @@ export default async function Profile() {
           <p>Email: {email}</p>
         </div>
         <EditProfile nickname={nick_name} />
+        <Avatar avatar={avatar}/>
       </div>
     </div>
   );
