@@ -58,6 +58,7 @@ const config = {
 		colors: {
 			blue: "#1fb6ff",
 			purple: "#4E1157",
+			"light-purple": "#631e6e",
 			darkPurple: "#631E6E",
 			pink: "#682626",
 			orange: "#ff7849",
@@ -67,6 +68,7 @@ const config = {
 			gray: "#8492a6",
 			"gray-light": "#d3dce6",
 			white: "#fff",
+			"blue-700": "#FFBB00",
 		},
 		extend: {
 			colors: {

@@ -26,7 +26,7 @@ export function Comments({ id, comments, user }: CommentProps) {
 				className="flex cursor-pointer"
 				onClick={() => setShowComments(!isShowComments)}
 			>
-				<MessageSquareMore className="mr-1 cursor-pointer" /> {comments.length}
+				<MessageSquareMore className="mr-1 cursor-pointer" /> {comments?.length}
 			</div>
 			{isShowComments &&
 				comments?.map((comment: CommentType) => {
