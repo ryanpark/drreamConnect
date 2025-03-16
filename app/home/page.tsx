@@ -221,7 +221,7 @@ export default async function Home() {
 						</h2>
 						<div className="flex flex-col md:flex-row justify-between gap-4 md:gap-4">
 							<div className="bg-yellow text-purple p-4 md:p-5 rounded">
-								<div className="mb-2">avatar</div>
+								<div className="mb-2">avatar 1</div>
 								<div className="text-sm md:text-base">
 									I found myself wandering through a dense, misty forest. The
 									trees were towering, and the air was thick with fog...
@@ -236,7 +236,7 @@ export default async function Home() {
 								</div>
 							</div>
 							<div className="bg-yellow text-purple p-4 md:p-5 rounded">
-								<div className="mb-2">avatar</div>
+								<div className="mb-2">avatar 2</div>
 								<div className="text-sm md:text-base">
 									I found myself wandering through a dense, misty forest. The
 									trees were towering, and the air was thick with fog...
@@ -251,7 +251,7 @@ export default async function Home() {
 								</div>
 							</div>
 							<div className="bg-yellow text-purple p-4 md:p-5 rounded">
-								<div className="mb-2">avatar</div>
+								<div className="mb-2">avatar 3</div>
 								<div className="text-sm md:text-base">
 									I found myself wandering through a dense, misty forest. The
 									trees were towering, and the air was thick with fog...
