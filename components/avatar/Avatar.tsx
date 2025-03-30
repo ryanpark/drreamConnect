@@ -97,7 +97,7 @@ export default function Avatar({
 					<div key={index} className="flex flex-col items-center">
 						<div
 							onClick={() => setAvatar(seed)}
-							dangerouslySetInnerHTML={{ __html: generateAvatar(seed) }}
+							dangerouslySetInnerHTML={{ __html: generateAvatar(seed, size) }}
 							className="w-32 h-32 rounded-full"
 						/>
 

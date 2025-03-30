@@ -7,16 +7,10 @@ import Avatar from "@/components/avatar/Avatar";
 import { SubmitButton } from "@/components/submit-button";
 import { postComments } from "@/app/actions";
 
-interface User {
-	id: string;
-	email: string;
-	full_name: string;
-}
-
 interface CommentProps {
 	id: number;
 	comments: CommentType[];
-	user: Pick<User, "id" | "email" | "full_name">;
+	user: object | null;
 }
 
 interface CommentType {
@@ -39,7 +33,7 @@ export function Comments({ id, comments, user }: CommentProps) {
 			{isShowComments &&
 				comments?.map((comment: CommentType) => {
 					return (
-						<div key={comment.nickname} className="flex">
+						<div key={comment.comment} className="flex">
 							{comment.nickname && (
 								<Avatar
 									avatar={comment.avatar}
