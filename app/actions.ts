@@ -45,11 +45,11 @@ export const postComments = async (formData: FormData) => {
 
 	const { data: person } = await supabase
 		.from("profile")
-		.select("nick_name")
+		.select("nick_name, avatar")
 		.eq("email", user?.email)
 		.single();
 
-	const { nick_name } = person as { nick_name: string };
+	const { nick_name, avatar } = person as { nick_name: string; avatar: string };
 
 	// not really sure this one, should it be replace with supabase
 
@@ -68,7 +68,8 @@ export const postComments = async (formData: FormData) => {
 	//   return encodedRedirect("success", "/dreams", "Updated comments!");
 	// }
 
-	const newComment = { comment: comments, nickname: nick_name };
+	const newComment = { comment: comments, nickname: nick_name, avatar: avatar };
+
 	const updatedComments = existingData?.comments
 		? [...existingData.comments, newComment]
 		: [newComment];
@@ -370,7 +371,7 @@ export const signUpFacebookAction = async () => {
 		provider: "facebook",
 		options: {
 			// todo : replace local env with prod env
-			redirectTo: `${defaultUrl}/auth/callback`,
+			redirectTo: "https://localhost:3000/auth/callback",
 		},
 	});
 	if (data.url) {

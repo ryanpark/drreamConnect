@@ -3,18 +3,26 @@
 import { useState } from "react";
 import { MessageSquareMore } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import Avatar from "@/components/avatar/Avatar";
 import { SubmitButton } from "@/components/submit-button";
 import { postComments } from "@/app/actions";
+
+interface User {
+	id: string;
+	email: string;
+	full_name: string;
+}
 
 interface CommentProps {
 	id: number;
 	comments: CommentType[];
-	user: any; //to do
+	user: Pick<User, "id" | "email" | "full_name">;
 }
 
 interface CommentType {
 	comment: string;
 	nickname: string;
+	avatar: string;
 }
 
 export function Comments({ id, comments, user }: CommentProps) {
@@ -31,14 +39,27 @@ export function Comments({ id, comments, user }: CommentProps) {
 			{isShowComments &&
 				comments?.map((comment: CommentType) => {
 					return (
-						<div>
-							{comment.nickname} , {comment.comment}
+						<div key={comment.nickname} className="flex">
+							{comment.nickname && (
+								<Avatar
+									avatar={comment.avatar}
+									visible
+									nickname={comment.nickname}
+									size={40}
+								/>
+							)}
+							{comment.comment}
 						</div>
 					);
 				})}
 			{user && isShowComments && (
 				<form>
-					<Input type="textarea" name="comments" />
+					{/* <Input type="textarea" name="comments" /> */}
+					<Input
+						className="bg-purple border-purple text-white focus-visible:ring-0 focus-visible:ring-offset-0"
+						placeholder="make commnent"
+						name="comments"
+					/>
 					<input type="hidden" name="dreamId" value={id} />
 
 					<SubmitButton formAction={postComments}>Make comment</SubmitButton>

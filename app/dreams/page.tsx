@@ -20,6 +20,7 @@ interface DreamType {
 interface CommentType {
 	comment: string;
 	nickname: string;
+	avatar: string;
 }
 
 export default async function Diary() {
@@ -35,7 +36,6 @@ export default async function Diary() {
 		.eq("public", true)
 		.order("created_at", { ascending: false });
 
-	console.log(dreams);
 	const uniqueDreams = Object.values(
 		(dreams || []).reduce((acc, dream) => {
 			if (!acc[dream.email]) {
@@ -66,17 +66,17 @@ export default async function Diary() {
 							comments,
 							avatar,
 						} = dreams;
-						console.log(avatar);
+
 						return (
 							<div className="p-4 rounded-md bg-darkPurple shadow-md">
 								<Dialog.Root>
 									<Dialog.Trigger asChild>
-										<button className=" w-full p-4 bg-violet4 text-violet11 rounded hover:bg-mauve3 focus-visible:outline-2 focus-visible:outline-violet6 text-left">
+										<button className="w-full p-4 bg-violet4 text-violet11 rounded hover:bg-mauve3 focus-visible:outline-2 focus-visible:outline-violet6 text-left">
 											<div className="">
 												<p>user: {nickname}</p>
 												<p>{date}</p>
 												<p>title : {title}</p>
-												<Avatar avatar={avatar} visible />
+												<Avatar avatar={avatar} visible nickname={nickname} />
 												<p>{avatar}</p>
 												<p>
 													content :
@@ -122,7 +122,7 @@ export default async function Diary() {
 													</p>
 													<div className="pt-2">
 														{tags?.map((tag, index) => (
-															<Badge key={index} className="mr-2">
+															<Badge key={tag} className="mr-2">
 																{tag}
 															</Badge>
 														))}
