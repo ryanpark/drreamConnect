@@ -6,7 +6,8 @@ import { createAvatar } from "@dicebear/core";
 import { personas } from "@dicebear/collection";
 
 interface AvatarProps {
-	avatar: string;
+	avatar: string | undefined;
+	visible?: boolean;
 }
 
 const seeds = [
@@ -33,15 +34,20 @@ const generateAvatar = (seed: string) => {
 	return avatar.toString(); // Returns SVG string
 };
 
-export default function Avatar({ avatar }: AvatarProps) {
-	const [defaultAvatar, setAvatar] = useState(avatar ?? "Emma");
+export default function Avatar({ avatar, visible = false }: AvatarProps) {
+	const [defaultAvatar, setAvatar] = useState(avatar ?? "");
 	const [isEdit, setEdit] = useState(false);
 
+	console.log(defaultAvatar);
 	return (
 		<div className="flex flex-wrap justify-center gap-4 p-4">
-			<div>
-				<button type="button" onClick={() => setEdit(!isEdit)}>Edit Avatar</button>
-			</div>
+			{!visible && (
+				<div>
+					<button type="button" onClick={() => setEdit(!isEdit)}>
+						Edit Avatar
+					</button>
+				</div>
+			)}
 			<div>
 				<form className="flex-1 flex flex-col min-w-64">
 					<div>
@@ -56,7 +62,7 @@ export default function Avatar({ avatar }: AvatarProps) {
 							<>
 								<input
 									type="text"
-									defaultValue={defaultAvatar}
+									value={defaultAvatar}
 									name="seed"
 									className="hidden"
 								/>
