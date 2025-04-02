@@ -4,6 +4,7 @@ import { Comments } from "@/components/comments/Comments";
 import * as Dialog from "@radix-ui/react-dialog";
 import { CircleX } from "lucide-react";
 import Avatar from "@/components/avatar/Avatar";
+import Image from "next/image";
 
 interface DreamType {
 	title: string;
@@ -50,8 +51,13 @@ export default async function Diary() {
 
 	return (
 		<div className="flex-1 w-full flex flex-col gap-12">
-			<div className="w-full">
-				<h1 className="text-2xl text-center m-10">Explore Dreams</h1>
+			<div className="flex flex-col items-center justify-center mb-10">
+				<div>
+					<Image src="/mirror.png" alt="girl" width={392} height={392} />
+				</div>
+				<h1 className="text-2xl text-center m-10">
+					Dive Into a Universe of Shared Dreams - What Will You Uncover?
+				</h1>
 
 				<div className="flex gap-6">
 					{shuffledDreams.map((dreams: DreamType) => {
@@ -71,23 +77,40 @@ export default async function Diary() {
 							<div className="p-4 rounded-md bg-darkPurple shadow-md">
 								<Dialog.Root>
 									<Dialog.Trigger asChild>
-										<button className="w-full p-4 bg-violet4 text-violet11 rounded hover:bg-mauve3 focus-visible:outline-2 focus-visible:outline-violet6 text-left">
+										<button className="w-full bg-violet4 text-violet11 rounded hover:bg-mauve3 focus-visible:outline-2 focus-visible:outline-violet6 text-left">
 											<div className="">
-												<p>user: {nickname}</p>
-												<p>{date}</p>
-												<p>title : {title}</p>
-												<Avatar avatar={avatar} visible nickname={nickname} />
-												<p>{avatar}</p>
-												<p>
-													content :
+												<div className="flex items-center mb-4">
+													<Avatar
+														avatar={avatar}
+														visible
+														nickname={nickname}
+														size={55}
+													/>
+													<div className="text-sm text-gray-light">
+														{nickname}
+													</div>
+												</div>
+												{/* {date} */}
+												<div className="">
+													<strong>{title}</strong>
 													<div dangerouslySetInnerHTML={{ __html: content }} />
-												</p>
+												</div>
+
+												<p>{avatar}</p>
+
 												<div className="pt-2">
-													{tags?.map((tag, index) => (
-														<Badge key={index} className="mr-2">
-															{tag}
-														</Badge>
-													))}
+													{tags?.length && tags.length > 0 && (
+														<div className="mt-4 flex flex-wrap">
+															{tags.map((tag) => (
+																<span
+																	key={tag}
+																	className="mr-2 mb-2 bg-secondary-purple px-2 py-1 rounded text-yellow text-sm"
+																>
+																	#{tag}
+																</span>
+															))}
+														</div>
+													)}
 												</div>
 											</div>
 										</button>
@@ -111,8 +134,10 @@ export default async function Diary() {
 
 												{/* Content */}
 												<div className="flex-1 overflow-auto p-5">
-													<p>user: {nickname}</p>
-													<p>{date}</p>
+													<div className="flex">
+														{nickname}
+														{date}
+													</div>
 													<p>title : {title}</p>
 													<p>
 														content :

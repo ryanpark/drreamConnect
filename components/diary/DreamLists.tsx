@@ -31,10 +31,24 @@ export default function DreamLists({ dreams }: DreamListsProps) {
 									<Dialog.Trigger asChild>
 										<div className="cursor-pointer w-full p-4 bg-violet4 text-violet11 rounded hover:bg-mauve3 focus-visible:outline-2 focus-visible:outline-violet6">
 											<div className="flex items-center justify-between">
-												<span>{date ? date.toString() : "No date"}</span>
+												<span className="text-sm text-gray-light">
+													{date ? date.toString() : "No date"}
+												</span>
 												<LockKeyhole />
 											</div>
-											<span>{title ?? "Untitled"}</span>
+											<div className="mt-4">{title ?? "Untitled"}</div>
+											{tags?.length > 0 && (
+												<div className="mt-4 flex flex-wrap">
+													{tags.map((tag) => (
+														<span
+															key={tag}
+															className="mr-2 mb-2 bg-secondary-purple px-2 py-1 rounded text-yellow text-sm"
+														>
+															#{tag}
+														</span>
+													))}
+												</div>
+											)}
 										</div>
 									</Dialog.Trigger>
 									<Dialog.Portal>
@@ -46,6 +60,7 @@ export default function DreamLists({ dreams }: DreamListsProps) {
 													<h2 className="text-xl font-semibold">
 														{title ?? "Title"}
 													</h2>
+
 													<Dialog.Close asChild>
 														<button
 															className="size-[30px] rounded-full bg-gray3 text-violet11 hover:bg-violet4 focus:outline-none focus:ring-2 focus:ring-violet7"

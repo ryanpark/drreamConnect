@@ -58,6 +58,7 @@ const config = {
 		colors: {
 			blue: "#1fb6ff",
 			purple: "#4E1157",
+			"secondary-purple": "#3E0A46",
 			"light-purple": "#631e6e",
 			darkPurple: "#631E6E",
 			pink: "#682626",

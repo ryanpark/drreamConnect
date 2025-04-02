@@ -37,6 +37,7 @@ const generateAvatar = (seed: string, size: number) => {
 		seed,
 		// Optional customization
 		size: size,
+		radius: 50,
 		backgroundColor: ["transparent"],
 	});
 	return avatar.toString(); // Returns SVG string
@@ -51,15 +52,32 @@ export default function Avatar({
 	const [defaultAvatar, setAvatar] = useState(avatar ?? "");
 	const [isEdit, setEdit] = useState(false);
 
+	if (visible) {
+		return (
+			<TooltipProvider>
+				<Tooltip>
+					<TooltipTrigger asChild>
+						<div
+							dangerouslySetInnerHTML={{
+								__html: generateAvatar(defaultAvatar, size),
+							}}
+							className=""
+						/>
+					</TooltipTrigger>
+					<TooltipContent>{nickname ?? "Emma"}</TooltipContent>
+				</Tooltip>
+			</TooltipProvider>
+		);
+	}
+
 	return (
 		<div className="flex flex-wrap justify-center gap-4 p-4">
-			{!visible && (
-				<div>
-					<button type="button" onClick={() => setEdit(!isEdit)}>
-						Edit Avatar
-					</button>
-				</div>
-			)}
+			<div>
+				<button type="button" onClick={() => setEdit(!isEdit)}>
+					Edit Avatar
+				</button>
+			</div>
+
 			<div>
 				<form className="flex-1 flex flex-col min-w-64">
 					<div>
@@ -100,7 +118,6 @@ export default function Avatar({
 							dangerouslySetInnerHTML={{ __html: generateAvatar(seed, size) }}
 							className="w-32 h-32 rounded-full"
 						/>
-
 						<p className="mt-2 text-sm">{seed}</p>
 					</div>
 				))}
