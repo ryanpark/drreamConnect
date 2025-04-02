@@ -12,6 +12,7 @@ import ReactQuill from "react-quill-new";
 import "./quill.snow.css";
 import { Switch } from "@/components/ui/switch"; // Adjust the import path as needed
 import { Label } from "@/components/ui/label";
+import Image from "next/image";
 
 interface IOptions {
 	inputDateFormatProp?: {
@@ -32,15 +33,15 @@ const options = {
 		background: "bg-purple",
 		todayBtn: "bg-yellow",
 		clearBtn: "bg-red",
-		icons: "#000",
+		icons: "bg-transparent",
 		text: "bg-black",
 		disabledText: "opacity-50",
-		input: "bg-purple border-none",
-		inputIcon: "green",
-		selected: "pink",
+		input: "bg-purple w-200 rounded-md border-none",
+		inputIcon: "",
+		selected: "text-underline",
 	},
 	icons: {
-		prev: () => <span className="bg-yellow">Previous</span>,
+		prev: () => <span>Previous</span>,
 		next: () => <span>Next</span>,
 	},
 	datepickerClassNames: "top-12",
@@ -203,32 +204,33 @@ export default function DiaryForm() {
 	return (
 		<>
 			{isSuccess ? (
-				<div className="text-green-500 mb-4">
-					Diary entry saved successfully!
-				</div>
+				<div className="text-green-500 mb-4">Your dream has saved...📕</div>
 			) : (
 				<form
 					className="flex-1 flex flex-col min-w-64"
 					onSubmit={handleSubmit}
 					id="dreamForm"
 				>
-					<h1 className="text-2xl font-medium">Write your dream</h1>
-					<div className="flex flex-col gap-2 [&>input]:mb-3 mt-8">
-						<Datepicker
-							options={options as IOptions}
-							onChange={handleChange}
-							show={show}
-							classNames="bg-purple"
-							setShow={handleClose}
-						/>
-						{errors.date && (
-							<p className="text-red-500 text-sm mt-1">Please select a date.</p>
-						)}
-
-						<div>
-							<h2 className="text-xl mb-2">Name of this dream</h2>
+					<div className="">
+						<div className="mb-7">
+							<p className="mb-5">When did you had this dream ?</p>
+							<Datepicker
+								options={options as IOptions}
+								onChange={handleChange}
+								show={show}
+								// classNames="bg-yellow"
+								setShow={handleClose}
+							/>
+							{errors.date && (
+								<p className="text-red-500 text-sm mt-1">
+									Please select a date.
+								</p>
+							)}
+						</div>
+						<div className="mb-7">
+							<p className="mb-5">Name of this dream</p>
 							<Input
-								className="bg-purple border-purple text-white focus-visible:ring-0 focus-visible:ring-offset-0"
+								className="bg-purple border-purple placeholder-yellow text-white focus-visible:ring-0 focus-visible:ring-offset-0"
 								placeholder="Enter dream name"
 								name="title"
 							/>
@@ -236,12 +238,13 @@ export default function DiaryForm() {
 						{errors.title && (
 							<p className="text-red-500 text-sm mt-1">Title is required.</p>
 						)}
+						<p className="mb-5">What was dream likes ?</p>
 						<ReactQuill
 							value={content}
 							onChange={handleEditorChange}
 							modules={quillModules}
 							formats={quillFormats}
-							className="w-full h-[70%] mt-10 bg-purple"
+							className="w-full h-[70%] bg-purple"
 						/>
 						{errors.content && (
 							<p className="text-red-500 text-sm mt-1">
@@ -257,23 +260,24 @@ export default function DiaryForm() {
 							onChange={handleImageChange}
 							disabled={isPending}
 						/>
-						<pre>{JSON.stringify(tags)}</pre>
-						<p>Add tags (Optional)</p>
-						<TagsInput
-							value={tags}
-							onChange={setTags}
-							name="tags"
-							placeHolder="enter new tag"
-							classNames={{
-								input: "bg-purple",
-								tag: "bg-purple",
-							}}
-						/>
+						<div className="mb-7 mt-7">
+							<p className="mb-5">Add tags (Optional)</p>
+							<TagsInput
+								value={tags}
+								onChange={setTags}
+								name="tags"
+								placeHolder="enter new tag"
+								classNames={{
+									input: "bg-purple",
+									tag: "bg-purple",
+								}}
+							/>
+						</div>
 
 						<Label htmlFor="public-mode" className="hidden">
 							Share Publicly
 						</Label>
-						<p>
+						<p className="mb-5">
 							Publish Public - by enable this feature, you can interact with
 							people in community and explore your dream with others
 						</p>
@@ -282,17 +286,19 @@ export default function DiaryForm() {
 							checked={isPublic}
 							onCheckedChange={setIsPublic}
 						/>
-						<button
-							type="button"
-							className="bg-slate-600 py-2 w-40 rounded-lg hidden"
-							onClick={(e) => {
-								e.preventDefault(); // Prevent form submission
-								imageInputRef.current?.click();
-							}}
-							disabled={isPending}
-						>
-							Select Images
-						</button>
+						<div className="mb-7">
+							<button
+								type="button"
+								className="bg-slate-600 py-2 w-40 rounded-lg hidden"
+								onClick={(e) => {
+									e.preventDefault(); // Prevent form submission
+									imageInputRef.current?.click();
+								}}
+								disabled={isPending}
+							>
+								Select Images
+							</button>
+						</div>
 						<button
 							type="button"
 							onClick={handleClickUploadImagesButton}
@@ -301,6 +307,7 @@ export default function DiaryForm() {
 						>
 							{isPending ? "Uploading..." : "Upload Images"}
 						</button>
+
 						<SubmitButton
 							pendingText="Saving..."
 							className="bg-yellow text-purple font-bold md:w-auto inline-flex"
