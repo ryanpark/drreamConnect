@@ -1,5 +1,8 @@
+"use client";
+
 import { LockKeyhole, CircleX } from "lucide-react";
 import * as Dialog from "@radix-ui/react-dialog";
+import DreamAnalysis from "./DreamAnalysis";
 
 interface DreamTypes {
 	title: string;
@@ -8,6 +11,8 @@ interface DreamTypes {
 	dreamDate: Date | null;
 	images: string[];
 	tags: string[];
+	id: number;
+	dream: string | null;
 }
 
 interface DreamListsProps {
@@ -17,16 +22,23 @@ interface DreamListsProps {
 export default function DreamLists({ dreams }: DreamListsProps) {
 	if (!dreams?.length) return <div>No dreams available</div>;
 
+	const tester =
+		"I had this bizarre dream where I was walking through a city made entirely of jelly. The buildings wobbled as I passed, and suddenly a giant talking cat wearing a top hat appeared, offering me a cup of tea. I took a sip, and then I started floating upward, only to realize the sky was made of chocolate syrup raining down.";
+
 	return (
 		<div className="">
 			<div className="flex flex-wrap gap-4">
 				{dreams
-					.filter((dream) => dream.title && dream.dreamDate && dream.content)
-					.map((dream: DreamTypes) => {
-						const { title, date, content, dreamDate, images, tags } = dream;
+					.filter(
+						(dreamItem) =>
+							dreamItem.title && dreamItem.dreamDate && dreamItem.content,
+					)
+					.map((dreamItem: DreamTypes) => {
+						const { title, date, content, dreamDate, images, tags, id, dream } =
+							dreamItem;
 
 						return (
-							<div className="rounded-md bg-darkPurple shadow-md w-[calc(33.333%-1rem)]">
+							<div className="shadow-md w-[calc(33.333%-1rem)] bg-darkPurple rounded-md">
 								<Dialog.Root key={title}>
 									<Dialog.Trigger asChild>
 										<div className="cursor-pointer w-full p-4 bg-violet4 text-violet11 rounded hover:bg-mauve3 focus-visible:outline-2 focus-visible:outline-violet6">
@@ -71,7 +83,6 @@ export default function DreamLists({ dreams }: DreamListsProps) {
 													</Dialog.Close>
 												</div>
 
-												{/* Content */}
 												<div className="flex-1 overflow-auto p-5">
 													<div>
 														Dream day: {dreamDate?.toString() ?? "Unknown"}
@@ -106,6 +117,10 @@ export default function DreamLists({ dreams }: DreamListsProps) {
 														dangerouslySetInnerHTML={{ __html: content }}
 														className="mt-4"
 													/>
+													{!dream && (
+														<DreamAnalysis content={content} id={id} />
+													)}
+													<div className="mt-10">{dream && dream}</div>
 												</div>
 											</div>
 										</Dialog.Content>
