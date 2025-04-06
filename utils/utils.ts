@@ -8,9 +8,21 @@ import { redirect } from "next/navigation";
  * @returns {never} This function doesn't return as it triggers a redirect.
  */
 export function encodedRedirect(
-  type: "error" | "success",
-  path: string,
-  message: string,
+	type: "error" | "success",
+	path: string,
+	message: string,
 ) {
-  return redirect(`${path}?${type}=${encodeURIComponent(message)}`);
+	return redirect(`${path}?${type}=${encodeURIComponent(message)}`);
+}
+
+export function extractTextFromHtml(html: string): string {
+	return html
+		.replace(/<[^>]+>/g, " ")
+		.replace(/\s+/g, " ")
+		.trim();
+}
+
+export function hasMoreThanTenWords(text: string) {
+	const words = text.trim().split(/\s+/);
+	return words.length > 10;
 }

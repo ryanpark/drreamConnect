@@ -5,6 +5,8 @@ import { createClient } from "@/utils/supabase/server";
 import { v4 as uuidv4 } from "uuid";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import OpenAI from "openai";
+import { extractTextFromHtml, hasMoreThanTenWords } from "@/utils/utils";
 
 interface saveDiaryTypes {
 	title: string;
@@ -20,6 +22,43 @@ interface UploadProps {
 	bucket: string;
 	folder?: string;
 }
+
+interface AddAnalyseDreamTypes {
+	dream: {
+		analysis: string;
+	};
+	id: number;
+}
+
+const openai = new OpenAI({
+	apiKey: process.env.OPENAI_API_KEY,
+});
+
+export const addAnalyseDream = async ({ dream, id }: AddAnalyseDreamTypes) => {
+	const supabase = await createClient();
+	const {
+		data: { user },
+		error: userError,
+	} = await supabase.auth.getUser();
+
+	// Check if user exists and handle userError if needed
+	if (userError || !user) {
+		throw new Error("User not authenticated or error occurred");
+	}
+
+	const { data, error } = await supabase
+		.from("dreams")
+		.update({ dream: dream.analysis }) // Update the 'dream' column with dreamContent
+		.eq("id", id) // Where id matches
+		.select("dream") // Select the updated dream column
+		.single(); // Return a single record
+
+	if (error) {
+		throw new Error(`Failed to update dream: ${error.message}`);
+	}
+
+	return data?.dream || "anal"; // Return the updated dream or fallback
+};
 
 export const postComments = async (formData: FormData) => {
 	const supabase = await createClient();
@@ -390,5 +429,37 @@ export const signUpGoogleAction = async () => {
 	});
 	if (data.url) {
 		redirect(data.url); // use the redirect API for your server framework
+	}
+};
+
+export const analyseDream = async (content: string) => {
+	const cleanDream = extractTextFromHtml(content);
+	const isValidate = hasMoreThanTenWords(cleanDream);
+	if (!isValidate) {
+		return {
+			error: "Your dream is too short, more context please",
+		};
+	}
+	try {
+		const completion = await openai.chat.completions.create({
+			model: "gpt-4o", // Updated to GPT-4o
+			messages: [
+				{
+					role: "system",
+					content:
+						"You are a dream analysis expert. Provide a concise and insightful interpretation of the user's dream.",
+				},
+				{
+					role: "user",
+					content: `I had this dream: "${cleanDream}". What does it mean?`,
+				},
+			],
+			temperature: 0.7,
+			max_tokens: 150,
+		});
+		return { analysis: completion.choices[0].message.content };
+	} catch (error) {
+		console.error("OpenAI Error:", error);
+		return { error: "Failed to analyze dream." };
 	}
 };
