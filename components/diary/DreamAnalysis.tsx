@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState, type MouseEvent } from "react";
 import { analyseDream, addAnalyseDream } from "@/app/actions";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
@@ -10,28 +10,32 @@ interface DreamAnalysisProps {
 	id: number;
 }
 
+interface DreamAnalysis {
+	analysis?: string | null;
+	error?: string;
+}
+
 export default function DreamAnalysis({ content, id }: DreamAnalysisProps) {
 	console.log("handleAnalyseDream called");
 	const [analysis, setAnalysis] = useState<string | null>(null);
 	const [error, setError] = useState<string | null>(null);
 	const [loading, setLoading] = useState(false);
 
-	const handleAnalyseDream = async (e: FormEvent<HTMLFormElement>) => {
+	const handleAnalyseDream = async (e: MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
 		setLoading(true);
 		setError(null);
 		setAnalysis(null);
 
 		try {
-			const result = await analyseDream(content);
-			setLoading(true);
+			const result: DreamAnalysis = await analyseDream(content);
+
 			if (result?.analysis) {
 				setAnalysis(result.analysis);
 				const saveDream = await addAnalyseDream({
 					dream: { analysis: result.analysis },
 					id: id,
 				});
-				console.log(saveDream);
 			} else if (result.error) {
 				setError(result.error);
 			}
@@ -46,7 +50,7 @@ export default function DreamAnalysis({ content, id }: DreamAnalysisProps) {
 		<div className="mt-4">
 			<Button
 				type="submit"
-				onClick={(e) => handleAnalyseDream(e)}
+				onClick={(e: MouseEvent<HTMLButtonElement>) => handleAnalyseDream(e)}
 				disabled={loading}
 				className="bg-yellow text-purple"
 			>
