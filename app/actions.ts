@@ -432,6 +432,43 @@ export const signUpGoogleAction = async () => {
 	}
 };
 
+export const generateAIimage = async (content: string) => {
+	const isValidate = hasMoreThanTenWords(content);
+	if (!isValidate) {
+		return {
+			error: "Your dream is too short, more context please",
+		};
+	}
+	const url = "https://api.deepai.org/api/text2img";
+
+	const apiKey = process.env.AI_IMAGE_KEY;
+
+	if (!apiKey) {
+		throw new Error("AI_IMAGE_KEY environment variable is not set");
+	}
+
+	const resp = await fetch(url, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+			"api-key": apiKey,
+		},
+		body: JSON.stringify({
+			text: content,
+		}),
+	});
+
+	if (!resp.ok) {
+		throw new Error("Failed to generate image from DeepAI API");
+	}
+
+	const data = await resp.json();
+
+	if (data) {
+		return data.output_url;
+	}
+};
+
 export const analyseDream = async (content: string) => {
 	const cleanDream = extractTextFromHtml(content);
 	const isValidate = hasMoreThanTenWords(cleanDream);

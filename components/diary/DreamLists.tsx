@@ -3,6 +3,7 @@
 import { LockKeyhole, CircleX } from "lucide-react";
 import * as Dialog from "@radix-ui/react-dialog";
 import DreamAnalysis from "./DreamAnalysis";
+import DreamImage from "./DreamImage";
 
 interface DreamTypes {
 	title: string;
@@ -112,7 +113,7 @@ export default function DreamLists({ dreams }: DreamListsProps) {
 															))}
 														</div>
 													)}
-
+													<DreamImage content={content} id={id} />
 													<div
 														dangerouslySetInnerHTML={{ __html: content }}
 														className="mt-4"
