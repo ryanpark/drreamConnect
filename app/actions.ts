@@ -30,9 +30,40 @@ interface AddAnalyseDreamTypes {
 	id: number;
 }
 
+interface AddAIimageTypes {
+	image: string;
+	id: number;
+}
+
 const openai = new OpenAI({
 	apiKey: process.env.OPENAI_API_KEY,
 });
+
+export const addAIimage = async ({ image, id }: AddAIimageTypes) => {
+	const supabase = await createClient();
+	const {
+		data: { user },
+		error: userError,
+	} = await supabase.auth.getUser();
+
+	// Check if user exists and handle userError if needed
+	if (userError || !user) {
+		throw new Error("User not authenticated or error occurred");
+	}
+
+	const { data, error } = await supabase
+		.from("dreams")
+		.update({ image: image }) // Update the 'dream' column with dreamContent
+		.eq("id", id) // Where id matches
+		.select("image") // Select the updated dream column
+		.single(); // Return a single record
+
+	if (error) {
+		throw new Error(`Failed to update dream: ${error.message}`);
+	}
+	console.log(data);
+	return data?.image || "anal"; // Return the updated dream or fallback
+};
 
 export const addAnalyseDream = async ({ dream, id }: AddAnalyseDreamTypes) => {
 	const supabase = await createClient();

@@ -32,7 +32,7 @@ export default function DreamAnalysis({ content, id }: DreamAnalysisProps) {
 
 			if (result?.analysis) {
 				setAnalysis(result.analysis);
-				const saveDream = await addAnalyseDream({
+				await addAnalyseDream({
 					dream: { analysis: result.analysis },
 					id: id,
 				});
