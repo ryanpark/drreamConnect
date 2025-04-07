@@ -30,9 +30,40 @@ interface AddAnalyseDreamTypes {
 	id: number;
 }
 
+interface AddAIimageTypes {
+	image: string;
+	id: number;
+}
+
 const openai = new OpenAI({
 	apiKey: process.env.OPENAI_API_KEY,
 });
+
+export const addAIimage = async ({ image, id }: AddAIimageTypes) => {
+	const supabase = await createClient();
+	const {
+		data: { user },
+		error: userError,
+	} = await supabase.auth.getUser();
+
+	// Check if user exists and handle userError if needed
+	if (userError || !user) {
+		throw new Error("User not authenticated or error occurred");
+	}
+
+	const { data, error } = await supabase
+		.from("dreams")
+		.update({ image: image }) // Update the 'dream' column with dreamContent
+		.eq("id", id) // Where id matches
+		.select("image") // Select the updated dream column
+		.single(); // Return a single record
+
+	if (error) {
+		throw new Error(`Failed to update dream: ${error.message}`);
+	}
+	console.log(data);
+	return data?.image || "anal"; // Return the updated dream or fallback
+};
 
 export const addAnalyseDream = async ({ dream, id }: AddAnalyseDreamTypes) => {
 	const supabase = await createClient();
@@ -429,6 +460,43 @@ export const signUpGoogleAction = async () => {
 	});
 	if (data.url) {
 		redirect(data.url); // use the redirect API for your server framework
+	}
+};
+
+export const generateAIimage = async (content: string) => {
+	const isValidate = hasMoreThanTenWords(content);
+	if (!isValidate) {
+		return {
+			error: "Your dream is too short, more context please",
+		};
+	}
+	const url = "https://api.deepai.org/api/text2img";
+
+	const apiKey = process.env.AI_IMAGE_KEY;
+
+	if (!apiKey) {
+		throw new Error("AI_IMAGE_KEY environment variable is not set");
+	}
+
+	const resp = await fetch(url, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+			"api-key": apiKey,
+		},
+		body: JSON.stringify({
+			text: content,
+		}),
+	});
+
+	if (!resp.ok) {
+		throw new Error("Failed to generate image from DeepAI API");
+	}
+
+	const data = await resp.json();
+
+	if (data) {
+		return data.output_url;
 	}
 };
 

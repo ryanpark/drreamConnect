@@ -1,43 +1,35 @@
 "use client";
 
 import { useState, type MouseEvent } from "react";
-import { analyseDream, addAnalyseDream } from "@/app/actions";
+import { generateAIimage, addAIimage } from "@/app/actions";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
+import Image from "next/image";
 
-interface DreamAnalysisProps {
+interface DreamImageProps {
 	content: string;
 	id: number;
 }
 
-interface DreamAnalysis {
-	analysis?: string | null;
-	error?: string;
-}
-
-export default function DreamAnalysis({ content, id }: DreamAnalysisProps) {
-	console.log("handleAnalyseDream called");
-	const [analysis, setAnalysis] = useState<string | null>(null);
+export default function DreamImage({ content, id }: DreamImageProps) {
+	const [image, setImage] = useState<string | null>(null);
 	const [error, setError] = useState<string | null>(null);
 	const [loading, setLoading] = useState(false);
 
-	const handleAnalyseDream = async (e: MouseEvent<HTMLButtonElement>) => {
+	const startGenerateAIimage = async (e: MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
 		setLoading(true);
 		setError(null);
-		setAnalysis(null);
+		setImage(null);
 
 		try {
-			const result: DreamAnalysis = await analyseDream(content);
-
-			if (result?.analysis) {
-				setAnalysis(result.analysis);
-				await addAnalyseDream({
-					dream: { analysis: result.analysis },
+			const imageUrl = await generateAIimage(content);
+			setImage(imageUrl);
+			if (imageUrl) {
+				await addAIimage({
+					image: imageUrl,
 					id: id,
 				});
-			} else if (result.error) {
-				setError(result.error);
 			}
 		} catch (err) {
 			setError("An unexpected error occurred");
@@ -50,24 +42,30 @@ export default function DreamAnalysis({ content, id }: DreamAnalysisProps) {
 		<div className="mt-4">
 			<Button
 				type="submit"
-				onClick={(e: MouseEvent<HTMLButtonElement>) => handleAnalyseDream(e)}
+				onClick={startGenerateAIimage}
 				disabled={loading}
 				className="bg-yellow text-purple"
 			>
 				{loading ? (
 					<div className="flex">
 						<Spinner size="md" className="bg-purple mr-4" />
-						Analysing...
+						generating...
 					</div>
 				) : (
-					"🔮 Unlock My Dream's Meaning"
+					"🖼️ Generate AI image"
 				)}
 			</Button>
 
-			{analysis && (
+			{image && (
 				<div className="mt-4 p-4 bg-green-100 text-green-800 rounded">
-					<h3 className="font-semibold">Dream Analysis:</h3>
-					<p>{analysis}</p>
+					<h3 className="font-semibold">Your generated AI image:</h3>
+					<Image
+						src={image}
+						width={512}
+						height={512}
+						alt=""
+						className="mt-2 max-w-full"
+					/>
 				</div>
 			)}
 			{error && (

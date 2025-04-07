@@ -3,6 +3,8 @@
 import { LockKeyhole, CircleX } from "lucide-react";
 import * as Dialog from "@radix-ui/react-dialog";
 import DreamAnalysis from "./DreamAnalysis";
+import DreamImage from "./DreamImage";
+import Image from "next/image";
 
 interface DreamTypes {
 	title: string;
@@ -13,6 +15,7 @@ interface DreamTypes {
 	tags: string[];
 	id: number;
 	dream: string | null;
+	image: string | null;
 }
 
 interface DreamListsProps {
@@ -34,8 +37,17 @@ export default function DreamLists({ dreams }: DreamListsProps) {
 							dreamItem.title && dreamItem.dreamDate && dreamItem.content,
 					)
 					.map((dreamItem: DreamTypes) => {
-						const { title, date, content, dreamDate, images, tags, id, dream } =
-							dreamItem;
+						const {
+							title,
+							date,
+							content,
+							dreamDate,
+							images,
+							tags,
+							id,
+							dream,
+							image,
+						} = dreamItem;
 
 						return (
 							<div className="shadow-md w-[calc(33.333%-1rem)] bg-darkPurple rounded-md">
@@ -120,7 +132,19 @@ export default function DreamLists({ dreams }: DreamListsProps) {
 													{!dream && (
 														<DreamAnalysis content={content} id={id} />
 													)}
+													{!image && <DreamImage content={content} id={id} />}
 													<div className="mt-10">{dream && dream}</div>
+													<div className="mt-10">
+														{image && (
+															<Image
+																src={image}
+																width={512}
+																height={512}
+																alt=""
+																className="mt-2 max-w-full"
+															/>
+														)}
+													</div>
 												</div>
 											</div>
 										</Dialog.Content>
