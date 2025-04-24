@@ -5,6 +5,7 @@ import HeaderAuth from "@/components/header-auth";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { hasEnvVars } from "@/utils/supabase/check-env-vars";
 import { GeistSans } from "geist/font/sans";
+import localFont from "next/font/local"
 import { ThemeProvider } from "next-themes";
 import Link from "next/link";
 import "./globals.css";
@@ -20,13 +21,35 @@ export const metadata = {
 		"Discover the hidden meanings behind your dreams with DreamConnect. Keep a private dream journal, connect with a like-minded community, and gain AI-driven insights—all in a secure, privacy-focused environment. Start your dream journey today!",
 };
 
+const satoshi = localFont({
+	src: [
+	  {
+		path: "../public/fonts/Satoshi-Regular.woff2",
+		weight: "400",
+		style: "normal",
+	  },
+	  {
+		path: "../public/fonts/Satoshi-Medium.woff2",
+		weight: "500",
+		style: "normal",
+	  },
+	  {
+		path: "../public/fonts/Satoshi-Bold.woff2",
+		weight: "700",
+		style: "normal",
+	  },
+	],
+	variable: "--font-satoshi", // Define CSS variable
+  })
+  
+
 export default function RootLayout({
 	children,
 }: {
 	children: React.ReactNode;
 }) {
 	return (
-		<html lang="en" className={GeistSans.className} suppressHydrationWarning>
+		<html lang="en" className={`${GeistSans.className} ${satoshi.variable}`} suppressHydrationWarning>
 			<body className="bg-dream-gradient text-white">
 				<ThemeProvider
 					attribute="class"

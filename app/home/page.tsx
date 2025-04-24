@@ -20,13 +20,13 @@ export default async function Home() {
 							/>
 						</div>
 						<div className="flex-1 flex flex-col justify-center text-center md:text-left">
-							<h2 className="text-2xl md:text-4xl font-light mb-6 md:mb-12">
+							<h2 className="text-2xl md:text-4xl font-light mb-6 md:mb-12 font-satoshi">
 								Dream, Share, Discover.
 							</h2>
-							<h2 className="text-2xl md:text-4xl font-light mb-6 md:mb-10 text-yellow">
+							<h2 className="text-2xl md:text-4xl font-light mb-6 md:mb-10 text-yellow font-satoshi">
 								Your Journey Begins Here.
 							</h2>
-							<h2 className="mt-2 text-sm md:text-base text-gray-light">
+							<h2 className="mt-2 text-sm md:text-base text-gray-light font-satoshi">
 								Unlock the Hidden World of Your Dreams
 							</h2>
 						</div>

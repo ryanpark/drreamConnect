@@ -72,6 +72,9 @@ const config = {
     		'blue-700': '#FFBB00'
     	},
     	extend: {
+			fontFamily: {
+				satoshi: ["var(--font-satoshi)"],
+			},
     		colors: {
     			border: 'hsl(var(--border))',
     			input: 'hsl(var(--input))',
