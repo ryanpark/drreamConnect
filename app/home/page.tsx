@@ -9,32 +9,28 @@ export default async function Home() {
 			<div className="w-full">
 				<div className="">
 					{/* Hero Section */}
-					<div className="w-full max-w-none flex flex-col md:flex-row gap-6 md:gap-8 items-center px-4">
-						<div className="flex-shrink-0 w-full md:w-[774px]">
+					<div className="flex flex-col items-center justify-center md:relative mt-8 md:mt-0">
+						<div>
 							<Image
-								src="/hero.png"
-								alt="heroes"
-								width={774}
-								height={417}
-								className="w-full max-w-[774px] h-auto"
+							src="/hero.png"
+							alt="heroes"
+							width={774}
+							height={417}
+							className="w-full max-w-[774px] h-auto"
 							/>
 						</div>
-						<div className="flex-1 flex flex-col justify-center text-center md:text-left">
-							<h2 className="text-2xl md:text-4xl font-light mb-6 md:mb-12 font-satoshi">
-								Dream, Share, Discover.
+						<div className="text-center">
+							<h2 className="text-2xl md:text-4xl mb-2 pt-14 md:mb-2 font-satoshi">
+							Dream, Share, and Discover.
 							</h2>
-							<h2 className="text-2xl md:text-4xl font-light mb-6 md:mb-10 text-yellow font-satoshi">
-								Your Journey Begins Here.
+							<h2 className="text-2xl md:text-4xl mb-6 md:mb-7 text-yellow font-satoshi">
+							Your Journey Begins Here.
 							</h2>
-							<h2 className="mt-2 text-sm md:text-base text-gray-light font-satoshi">
-								Unlock the Hidden World of Your Dreams
+							<h2 className="mt-1 text-xl md:text-lg text-gray-light font-satoshi">
+							Unlock the Hidden World of Your Dreams
 							</h2>
 						</div>
-					</div>
-
-					{/* Absolute Images */}
-					<div className="md:relative mt-8 md:mt-0 flex justify-center">
-						<div className="md:absolute md:right-[70px] md:top-[45px] content-center">
+						<div className="md:absolute md:left-[-72px] md:top-[359px] content-center">
 							<Image
 								src="/ele.png"
 								alt="heroes"
@@ -45,15 +41,9 @@ export default async function Home() {
 						</div>
 					</div>
 					{/* Intro Text */}
-					<div className="flex justify-center items-center mt-20 md:mt-[300px] mb-12 md:mb-[100px] px-4">
-						<h1 className="text-center text-lg md:text-xl max-w-md md:max-w-2xl">
-							DreamConnect combines personal journaling, community sharing, and
-							AI-powered insights to help you explore your dreams like never
-							before.
-						</h1>
-					</div>
-					<div className="relative flex justify-center">
-						<div className="md:absolute left-4 md:left-[70px] top-[1px] md:top-[-196px]">
+					<div className="flex flex-col items-center justify-center mt-14">
+						<div className="relative flex justify-center order-2 md:order-1">
+							<div>
 							<Image
 								src="/eye.png"
 								alt="heroes"
@@ -61,8 +51,14 @@ export default async function Home() {
 								height={233}
 								// className="w-[70px] md:w-[136px] h-auto"
 							/>
+							</div>
 						</div>
+						<h1 className="text-center text-lg md:text-xl max-w-md md:max-w-2xl order-1 md:order-2 mb-6 md:mb-0 md:mt-6">
+							DreamConnect combines personal journaling, community sharing, and AI-powered insights to help you explore your
+							dreams like never before.
+						</h1>
 					</div>
+					
 
 					{/* Features Header */}
 					<h2 className="text-2xl md:text-4xl font-light mb-16 md:mb-40 mt-16 md:mt-40 text-center">
