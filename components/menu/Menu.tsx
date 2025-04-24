@@ -13,11 +13,16 @@ import {
 import Link from "next/link";
 import { signOutAction } from "@/app/actions";
 
-const MobileDropdownMenu = ({ nick_name, isAuthenticated }) => {
+interface MobileDropdownMenuProps {
+    nick_name: string;
+    isAuthenticated: boolean;
+}
+
+const MobileDropdownMenu = ({ nick_name, isAuthenticated }: MobileDropdownMenuProps) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <Button variant="soft" className="flex items-center gap-2">
+        <Button className="flex items-center gap-2">
           {isAuthenticated ? `Hey, ${nick_name || "User"}` : "Menu"}
           <ChevronDown className="h-4 w-4" />
         </Button>
