@@ -97,7 +97,7 @@ export default async function Diary() {
                             dangerouslySetInnerHTML={{ __html: content }}
                           />
                         </div>
-                        {tags?.length > 0 && (
+                        {tags && tags?.length > 0 && (
                           <div className="mt-4 flex flex-wrap">
                             {tags.map((tag) => (
                               <span
@@ -152,7 +152,7 @@ export default async function Diary() {
                               dangerouslySetInnerHTML={{ __html: content }}
                             />
                           </div>
-                          {tags?.length > 0 && (
+                          {tags && tags?.length > 0 && (
                             <div className="mt-4 flex flex-wrap gap-2">
                               {tags.map((tag) => (
                                 <Badge key={tag} className="mr-2">
