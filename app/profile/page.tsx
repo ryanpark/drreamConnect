@@ -1,8 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import EditProfile from "@/components/profile/EditProfile";
 import Avatar from "@/components/avatar/Avatar";
-import { Button } from "@/components/ui/button";
-import { redirect } from "next/navigation";
 import Link from "next/link";
 
 interface UserMetadataProps {
@@ -13,7 +11,7 @@ interface UserMetadataProps {
 export default async function Profile({
   searchParams,
 }: {
-  searchParams: { edit?: string };
+  searchParams: Promise<{ edit?: string }>;
 }) {
   const supabase = await createClient();
 
@@ -39,8 +37,9 @@ export default async function Profile({
 
   const { nick_name, avatar } = data as { nick_name: string; avatar: string };
 
-  // Read edit mode from searchParams
-  const editMode = searchParams.edit === "true";
+  // Await searchParams to get the actual query parameters
+  const resolvedSearchParams = await searchParams;
+  const editMode = resolvedSearchParams.edit === "true";
 
   return (
     <div className="p-10 rounded-md bg-darkPurple shadow-md relative">

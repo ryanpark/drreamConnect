@@ -16,7 +16,7 @@ interface AvatarProps {
   nickname?: string | undefined;
   visible?: boolean;
   size?: number;
-  isEditMode: boolean;
+  isEditMode?: boolean;
 }
 
 const seeds = [
