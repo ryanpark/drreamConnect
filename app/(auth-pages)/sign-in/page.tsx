@@ -15,13 +15,25 @@ export default async function Login(props: { searchParams: Promise<Message> }) {
   const searchParams = await props.searchParams;
 
   return (
-    <div className="mt-10">
+    <div className="">
+      <div className="flex justify-center mb-6 sm:hidden">
+        <div className="">
+          <Image
+            src="/pigHead.png"
+            width={130}
+            height={154}
+            alt="here is my bitch"
+          />
+        </div>
+      </div>
+
       <h1 className="text-2xl font-satoshi mb-10 pl-10 pr-10">
         Explore, understand, and connect over dreams
       </h1>
+
       <div className="p-10 rounded-md bg-darkPurple shadow-md relative">
         <form className="flex-1 flex flex-col min-w-64">
-          <div className="absolute right-[-107px] top-[-200px]">
+          <div className="absolute right-[-107px] top-[-200px] hidden sm:block">
             <Image
               src="/bitch.png"
               width={175}
@@ -74,7 +86,7 @@ export default async function Login(props: { searchParams: Promise<Message> }) {
             <div className="pt-10 pb-10 text-center">- Or Sign In with -</div>
 
             {/* Facebook Sign-Up Button */}
-            <div className="flex justify-evenly">
+            <div className="block text-center sm:flex sm:justify-evenly sm:text-left sm:items-center">
               <Button
                 onClick={signUpFacebookAction}
                 className="bg-yellow text-purple font-bold md:w-auto inline-flex"
@@ -90,7 +102,7 @@ export default async function Login(props: { searchParams: Promise<Message> }) {
               </Button>
               <Button
                 onClick={signUpGoogleAction}
-                className="bg-yellow text-purple font-bold md:w-auto inline-flex"
+                className="bg-yellow text-purple font-bold md:w-auto inline-flex mt-5 sm:mt-0"
                 variant="outline"
               >
                 <Image
