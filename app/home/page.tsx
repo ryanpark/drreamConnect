@@ -95,6 +95,8 @@ export default async function Home() {
                   autoPlay
                   muted
                   loop
+                  playsInline
+                  controls={false}
                   preload="auto"
                   className="w-full h-full rounded-md object-cover"
                 >
@@ -134,6 +136,8 @@ export default async function Home() {
                 <video
                   autoPlay
                   muted
+                  playsInline
+                  controls={false}
                   loop
                   preload="auto"
                   className="w-full h-full rounded-md object-cover"
@@ -198,6 +202,8 @@ export default async function Home() {
                   autoPlay
                   muted
                   loop
+                  playsInline
+                  controls={false}
                   preload="auto"
                   className="w-full h-full rounded-md object-cover"
                 >
