@@ -1,10 +1,12 @@
 import DeployButton from "@/components/deploy-button";
 import { EnvVarWarning } from "@/components/env-var-warning";
 import Logo from "@/components/ui/Logo";
+
 import HeaderAuth from "@/components/header-auth";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { hasEnvVars } from "@/utils/supabase/check-env-vars";
 import { GeistSans } from "geist/font/sans";
+
 import localFont from "next/font/local";
 import { ThemeProvider } from "next-themes";
 import Link from "next/link";
