@@ -10,6 +10,14 @@ export default async function Home() {
         <div className="">
           {/* Hero Section */}
           <div className="flex flex-col items-center justify-center md:relative mt-8 md:mt-0">
+            <div className="mb-12">
+              <Image
+                src="/dot.svg"
+                width={44}
+                height={44}
+                alt="Picture of the author"
+              />
+            </div>
             <div>
               <Image
                 src="/hero.png"
@@ -30,7 +38,7 @@ export default async function Home() {
                 Unlock the Hidden World of Your Dreams
               </h2>
             </div>
-            <div className="md:absolute md:left-[-72px] md:top-[359px] content-center">
+            <div className="md:absolute md:left-[-72px] md:top-[359px] content-center mt-10">
               <Image
                 src="/ele.png"
                 alt="heroes"
@@ -41,7 +49,7 @@ export default async function Home() {
             </div>
           </div>
           {/* Intro Text */}
-          <div className="flex flex-col items-center justify-center mt-14">
+          <div className="flex flex-col items-center justify-center mt-14 p-5">
             <div className="relative flex justify-center order-2 md:order-1">
               <div>
                 <Image
@@ -61,12 +69,12 @@ export default async function Home() {
           </div>
 
           {/* Features Header */}
-          <h2 className="text-2xl md:text-4xl font-light mb-16 md:mb-40 mt-16 md:mt-40 text-center font-satoshi">
+          <h2 className="text-2xl md:text-4xl font-light mb-16 md:mb-40 mt-16 md:mt-40 text-center font-satoshi underline decoration-wavy decoration-yellow">
             Discover Our Features
           </h2>
 
           {/* Feature Sections */}
-          <div className="flex flex-col md:flex-row mb-12 md:mb-20 gap-6 px-4">
+          <div className="flex flex-col md:flex-row md:mb-20 gap-6 px-5 mb-28">
             <div className="w-full md:w-1/2 p-0 md:p-4">
               <h3 className="text-xl md:text-3xl mb-2 font-satoshi">
                 🌟 Dream Diary
@@ -90,7 +98,7 @@ export default async function Home() {
               </Link>
             </div>
             <div className="w-full md:w-1/2 p-0 md:p-4">
-              <div className="relative w-full aspect-video border rounded-md border-purple shadow-md">
+              <div className="relative w-full aspect-video border rounded-md border-purple shadow-lg">
                 <video
                   autoPlay
                   muted
@@ -112,7 +120,7 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="flex flex-col md:flex-row mb-12 md:mb-20 gap-6 px-4">
+          <div className="flex flex-col md:flex-row mb-28 md:mb-20 gap-6 px-5">
             <div className="w-full md:w-1/2 p-0 md:p-4">
               <h3 className="text-xl md:text-3xl mb-2 font-satoshi">
                 🦄 Dream Sharing
@@ -127,12 +135,12 @@ export default async function Home() {
               </ul>
               <Link href="/home/diary">
                 <Button className="bg-yellow text-purple font-bold w-full md:w-auto">
-                  Log Your First Dream Today
+                  Share Your Dream
                 </Button>
               </Link>
             </div>
             <div className="w-full md:w-1/2 p-0 md:p-4">
-              <div className="relative w-full aspect-video border rounded-md border-purple shadow-md">
+              <div className="relative w-full aspect-video border rounded-md border-purple shadow-lg">
                 <video
                   autoPlay
                   muted
@@ -149,7 +157,7 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="flex flex-col md:flex-row mb-12 md:mb-20 gap-6 px-4">
+          <div className="flex flex-col md:flex-row mb-28 md:mb-20 gap-6 px-5">
             <div className="w-full md:w-1/2 p-0 md:p-4">
               <h3 className="text-xl md:text-2xl mb-2 font-satoshi">
                 👁️ Find Related Dreams
@@ -164,7 +172,7 @@ export default async function Home() {
               </ul>
               <Link href="/home/diary">
                 <Button className="bg-yellow text-purple font-bold w-full md:w-auto">
-                  Log Your First Dream Today
+                  See Connected Dreams
                 </Button>
               </Link>
             </div>
@@ -177,7 +185,7 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="flex flex-col md:flex-row mb-12 md:mb-20 gap-6 px-4">
+          <div className="flex flex-col md:flex-row mb-28 md:mb-20 gap-6 px-5">
             <div className="w-full md:w-1/2 p-0 md:p-4">
               <h3 className="text-xl md:text-2xl mb-2 font-satoshi">
                 🔮 AI Dream Analysis
@@ -192,12 +200,12 @@ export default async function Home() {
               </ul>
               <Link href="/home/diary">
                 <Button className="bg-yellow text-purple font-bold w-full md:w-auto">
-                  Log Your First Dream Today
+                  Analyze My Dream with AI
                 </Button>
               </Link>
             </div>
             <div className="w-full md:w-1/2 p-0 md:p-4">
-              <div className="relative w-full aspect-video border rounded-md border-purple shadow-md">
+              <div className="relative w-full aspect-video border rounded-md border-purple shadow-lg">
                 <video
                   autoPlay
                   muted
@@ -214,7 +222,7 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="flex flex-col md:flex-row mb-12 md:mb-20 gap-6 px-4">
+          <div className="flex flex-col md:flex-row mb-28 md:mb-20 gap-6 px-5">
             <div className="w-full md:w-1/2 p-0 md:p-4">
               <h3 className="text-xl md:text-2xl mb-2 font-satoshi">
                 🖼️ AI Dream Image Generator
@@ -229,7 +237,7 @@ export default async function Home() {
               </ul>
               <Link href="/home/diary">
                 <Button className="bg-yellow text-purple font-bold w-full md:w-auto">
-                  Log Your First Dream Today
+                  Create Dreamscape with AI
                 </Button>
               </Link>
             </div>
@@ -249,50 +257,60 @@ export default async function Home() {
             </h2>
             <div className="flex flex-col md:flex-row justify-between gap-4 md:gap-4">
               <div className="bg-yellow text-purple p-4 md:p-5 rounded">
-                <div className="mb-2">avatar 1</div>
+                <div className="mb-2 font-bold">
+                  The Whispering Forest of Faces
+                </div>
                 <div className="text-sm md:text-base">
-                  I found myself wandering through a dense, misty forest. The
-                  trees were towering, and the air was thick with fog...
+                  Last night, I dreamed I was walking through a forest where
+                  every tree had a human face carved into its bark. The faces
+                  whispered my name in unison, their voices like wind chimes...
                 </div>
                 <div className="my-2 flex flex-wrap gap-2">
                   <Badge className="border-none bg-purple text-gray-light text-xs md:text-sm">
-                    #sky
+                    #Surreal
                   </Badge>
                   <Badge className="border-none bg-purple text-gray-light text-xs md:text-sm">
-                    #scary
+                    #TalkingTrees
                   </Badge>
                 </div>
               </div>
               <div className="bg-yellow text-purple p-4 md:p-5 rounded">
-                <div className="mb-2">avatar 2</div>
+                <div className="mb-2 font-bold">The Melting Clock Tower</div>
                 <div className="text-sm md:text-base">
-                  I found myself wandering through a dense, misty forest. The
-                  trees were towering, and the air was thick with fog...
+                  I had the strangest dream about a city where a giant clock
+                  tower stood in the center, but its face was melting like wax,
+                  dripping numbers onto the cobblestone...
                 </div>
                 <div className="my-2 flex flex-wrap gap-2">
                   <Badge className="border-none bg-purple text-gray-light text-xs md:text-sm">
-                    #sky
+                    #Time
                   </Badge>
                   <Badge className="border-none bg-purple text-gray-light text-xs md:text-sm">
-                    #scary
+                    #Melting
+                  </Badge>
+                  <Badge className="border-none bg-purple text-gray-light text-xs md:text-sm">
+                    #Memories
                   </Badge>
                 </div>
               </div>
               <div className="bg-yellow text-purple p-4 md:p-5 rounded">
-                <div className="mb-2">avatar 3</div>
+                <div className="mb-2 font-bold">
+                  The Train of Forgotten Toys
+                </div>
                 <div className="text-sm md:text-base">
-                  I found myself wandering through a dense, misty forest. The
-                  trees were towering, and the air was thick with fog...
+                  In my dream, I was on a train that stretched forever, its cars
+                  filled with old toys—teddy bears with missing eyes, dolls that
+                  giggled,...
                 </div>
                 <div className="my-2 flex flex-wrap gap-2">
                   <Badge className="border-none bg-purple text-gray-light text-xs md:text-sm">
-                    #sky
+                    #Nostalgia
                   </Badge>
                   <Badge className="border-none bg-purple text-gray-light text-xs md:text-sm">
-                    #sea
+                    #Toys
                   </Badge>
                   <Badge className="border-none bg-purple text-gray-light text-xs md:text-sm">
-                    #girls
+                    #Desert
                   </Badge>
                 </div>
               </div>

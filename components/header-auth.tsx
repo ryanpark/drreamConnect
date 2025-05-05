@@ -61,8 +61,7 @@ export default async function AuthButton() {
   const MenuList = () => {
     return user ? (
       <div className="flex items-center gap-4 text-yellow">
-        Hey, {person?.nick_name}!
-        <Link href="/mydreams">My diary</Link>
+        Hey, {person?.nick_name}!<Link href="/mydreams">My diary</Link>
         <Link href="/dreams">Explore dreams</Link>
         <Link href="/profile">Profile</Link>
         <form action={signOutAction}>
@@ -95,7 +94,10 @@ export default async function AuthButton() {
         <MenuList />
       </div>
       <div className="block md:hidden">
-        <MobileDropdownMenu nick_name={person?.nick_name} isAuthenticated={!!user} />
+        <MobileDropdownMenu
+          nick_name={person?.nick_name}
+          isAuthenticated={!!user}
+        />
       </div>
     </div>
   );

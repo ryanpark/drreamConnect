@@ -93,7 +93,7 @@ export default async function Diary() {
                         <div>
                           <strong>{title}</strong>
                           <div
-                            className="mt-2"
+                            className="mt-2 text-ellipsis overflow-hidden max-h-96"
                             dangerouslySetInnerHTML={{ __html: content }}
                           />
                         </div>
