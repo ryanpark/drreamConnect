@@ -29,7 +29,7 @@ export default function EditProfile({
         <>
           <h2 className="mb-10 mt-10">Choose your Nick name</h2>
           <form className="justify-center items-center flex">
-            <div className="flex w-[400px]">
+            <div className="flex sm:w-[400px]">
               <Input
                 type="text"
                 defaultValue={nickname}

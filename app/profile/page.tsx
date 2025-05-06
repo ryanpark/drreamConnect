@@ -42,7 +42,7 @@ export default async function Profile({
   const editMode = resolvedSearchParams.edit === "true";
 
   return (
-    <div className="p-10 rounded-md bg-darkPurple shadow-md relative">
+    <div className="p-5 rounded-md bg-darkPurple shadow-md relative">
       <div className="w-full">
         <div className="flex">
           <div className="text-center">

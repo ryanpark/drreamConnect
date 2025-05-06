@@ -61,13 +61,30 @@ export default async function Home() {
                 />
               </div>
             </div>
+
             <h1 className="text-center text-lg md:text-xl max-w-md md:max-w-2xl order-1 md:order-2 mb-6 md:mb-0 md:mt-6">
               DreamConnect combines personal journaling, community sharing, and
               AI-powered insights to help you explore your dreams like never
               before.
             </h1>
           </div>
-
+          <div className="mb-12 mt-12 text-center flex justify-center">
+            <Image
+              src="/dot.svg"
+              width={44}
+              height={44}
+              alt="Picture of the author"
+            />
+          </div>
+          <div className="text-center mt-5 text-lg">
+            <ul>
+              <li className="mb-4"> 🌟 Dream Diary</li>
+              <li className="mb-4"> 🦄 Dream Sharing</li>
+              <li className="mb-4"> 👁️ Find Related Dreams</li>
+              <li className="mb-4"> 🔮 AI Dream Analysis</li>
+              <li className="mb-4"> 🖼️ AI Dream Image Generator</li>
+            </ul>
+          </div>
           {/* Features Header */}
           <h2 className="text-2xl md:text-4xl font-light mb-16 md:mb-40 mt-16 md:mt-40 text-center font-satoshi underline decoration-wavy decoration-yellow">
             Discover Our Features
