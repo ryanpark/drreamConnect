@@ -25,6 +25,7 @@ export default async function Home() {
                 width={774}
                 height={417}
                 className="w-full max-w-[774px] h-auto"
+                priority
               />
             </div>
             <div className="text-center">

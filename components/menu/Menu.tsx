@@ -105,14 +105,13 @@ const MobileSlideMenu = ({
                 action={signOutAction}
                 className="w-full flex justify-center animate-fadeIn delay-[500ms]"
               >
-                <Button
+                <button
                   type="submit"
-                  variant="outline"
                   className="text-xl py-6 w-3/4 border-purple hover:bg-purple/10 bg-purple"
                   onClick={handleLinkClick}
                 >
                   Sign out
-                </Button>
+                </button>
               </form>
             </>
           ) : (

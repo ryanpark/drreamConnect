@@ -65,25 +65,15 @@ export default async function AuthButton() {
         <Link href="/dreams">Explore dreams</Link>
         <Link href="/profile">Profile</Link>
         <form action={signOutAction}>
-          <Button type="submit" variant={"outline"}>
-            Sign out
-          </Button>
+          <button type="submit">Sign out</button>
         </form>
       </div>
     ) : (
-      <div className="flex gap-2 text-yellow">
-        <Link href="/dreams">Explore dreams</Link>
-        <Button
-          asChild
-          size="sm"
-          variant={"outline"}
-          className="bg-yellow text-black"
-        >
-          <Link href="/sign-in">Sign in</Link>
-        </Button>
-        <Button asChild size="sm" variant={"default"}>
-          <Link href="/sign-up">Sign up</Link>
-        </Button>
+      <div className="flex gap-2 text-yellow flex items-center">
+        <Link href="/dreams">
+          Explore dreams <span className="animate-flash">●</span>{" "}
+        </Link>
+        <Link href="/sign-in">Sign in</Link>
       </div>
     );
   };
