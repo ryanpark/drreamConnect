@@ -70,9 +70,8 @@ export default async function AuthButton() {
       </div>
     ) : (
       <div className="flex gap-2 text-yellow flex items-center">
-        <Link href="/dreams">
-          Explore dreams <span className="animate-flash">●</span>{" "}
-        </Link>
+        <Link href="/dreams">Explore dreams</Link>
+        <span className="animate-flash">●</span>{" "}
         <Link href="/sign-in">Sign in</Link>
       </div>
     );

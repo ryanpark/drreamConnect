@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import { PluginAPI } from "tailwindcss/types/config";
 
 const config = {
   darkMode: ["class"],
@@ -161,7 +162,14 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    function ({ addBase }: PluginAPI) {
+      addBase({
+        a: { "@apply hover:underline": {} },
+      });
+    },
+  ],
 } satisfies Config;
 
 export default config;

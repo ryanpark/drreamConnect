@@ -77,6 +77,7 @@ export default async function Home() {
               alt="Picture of the author"
             />
           </div>
+
           <div className="text-center mt-5 text-lg">
             <ul>
               <li className="mb-4"> 🌟 Dream Diary</li>
@@ -85,6 +86,13 @@ export default async function Home() {
               <li className="mb-4"> 🔮 AI Dream Analysis</li>
               <li className="mb-4"> 🖼️ AI Dream Image Generator</li>
             </ul>
+          </div>
+          <div className="flex items-center justify-center mt-20">
+            <Link href="/dreams">
+              <Button className="bg-yellow text-purple font-bold w-full md:w-auto">
+                Explore Dreams
+              </Button>
+            </Link>
           </div>
           {/* Features Header */}
           <h2 className="text-2xl md:text-4xl font-light mb-16 md:mb-40 mt-16 md:mt-40 text-center font-satoshi underline decoration-wavy decoration-yellow">
@@ -275,14 +283,17 @@ export default async function Home() {
             </h2>
             <div className="flex flex-col md:flex-row justify-between gap-4 md:gap-4">
               <div className="bg-yellow text-purple p-4 md:p-5 rounded">
-                <div className="mb-2 font-bold">
-                  The Whispering Forest of Faces
-                </div>
-                <div className="text-sm md:text-base">
-                  Last night, I dreamed I was walking through a forest where
-                  every tree had a human face carved into its bark. The faces
-                  whispered my name in unison, their voices like wind chimes...
-                </div>
+                <Link href="/dreams" className="hover:no-underline">
+                  <div className="mb-2 font-bold">
+                    The Whispering Forest of Faces
+                  </div>
+                  <div className="text-sm md:text-base">
+                    Last night, I dreamed I was walking through a forest where
+                    every tree had a human face carved into its bark. The faces
+                    whispered my name in unison, their voices like wind
+                    chimes...
+                  </div>
+                </Link>
                 <div className="my-2 flex flex-wrap gap-2">
                   <Badge className="border-none bg-purple text-gray-light text-xs md:text-sm">
                     #Surreal
@@ -293,12 +304,14 @@ export default async function Home() {
                 </div>
               </div>
               <div className="bg-yellow text-purple p-4 md:p-5 rounded">
-                <div className="mb-2 font-bold">The Melting Clock Tower</div>
-                <div className="text-sm md:text-base">
-                  I had the strangest dream about a city where a giant clock
-                  tower stood in the center, but its face was melting like wax,
-                  dripping numbers onto the cobblestone...
-                </div>
+                <Link href="/dreams" className="hover:no-underline">
+                  <div className="mb-2 font-bold">The Melting Clock Tower</div>
+                  <div className="text-sm md:text-base">
+                    I had the strangest dream about a city where a giant clock
+                    tower stood in the center, but its face was melting like
+                    wax, dripping numbers onto the cobblestone...
+                  </div>
+                </Link>
                 <div className="my-2 flex flex-wrap gap-2">
                   <Badge className="border-none bg-purple text-gray-light text-xs md:text-sm">
                     #Time
@@ -312,14 +325,16 @@ export default async function Home() {
                 </div>
               </div>
               <div className="bg-yellow text-purple p-4 md:p-5 rounded">
-                <div className="mb-2 font-bold">
-                  The Train of Forgotten Toys
-                </div>
-                <div className="text-sm md:text-base">
-                  In my dream, I was on a train that stretched forever, its cars
-                  filled with old toys—teddy bears with missing eyes, dolls that
-                  giggled,...
-                </div>
+                <Link href="/dreams" className="hover:no-underline">
+                  <div className="mb-2 font-bold">
+                    The Train of Forgotten Toys
+                  </div>
+                  <div className="text-sm md:text-base">
+                    In my dream, I was on a train that stretched forever, its
+                    cars filled with old toys—teddy bears with missing eyes,
+                    dolls that giggled,...
+                  </div>
+                </Link>
                 <div className="my-2 flex flex-wrap gap-2">
                   <Badge className="border-none bg-purple text-gray-light text-xs md:text-sm">
                     #Nostalgia
