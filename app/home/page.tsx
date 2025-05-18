@@ -100,7 +100,7 @@ export default async function Home() {
           </h2>
 
           {/* Feature Sections */}
-          <div className="flex flex-col md:flex-row md:mb-20 gap-6 px-5 mb-28">
+          <div className="flex flex-col md:flex-row md:mb-20 gap-6 px-5 mb-10">
             <div className="w-full md:w-1/2 p-0 md:p-4">
               <h3 className="text-xl md:text-3xl mb-2 font-satoshi">
                 🌟 Dream Diary
@@ -117,11 +117,14 @@ export default async function Home() {
                 </li>
                 <li className="py-1">Choose privacy settings for each entry</li>
               </ul>
-              <Link href="/home/diary">
-                <Button className="bg-yellow text-purple font-bold w-full md:w-auto">
-                  Log Your First Dream Today
-                </Button>
-              </Link>
+              {/* Button visible only on desktop */}
+              <div className="flex items-center justify-center mb-10 md:block hidden">
+                <Link href="/home/diary">
+                  <Button className="bg-yellow text-purple font-bold w-full md:w-auto">
+                    Log Your First Dream Today
+                  </Button>
+                </Link>
+              </div>
             </div>
             <div className="w-full md:w-1/2 p-0 md:p-4">
               <div className="relative w-full aspect-video border rounded-md border-purple shadow-lg">
@@ -138,11 +141,14 @@ export default async function Home() {
                   Your browser does not support the video tag.
                 </video>
               </div>
-              {/* <img
-                src="https://placehold.co/588x318"
-                alt="Dream Diary Preview"
-                className="w-full h-auto"
-              /> */}
+              {/* Button visible only on mobile */}
+              <div className="flex items-center justify-center mb-10 block md:hidden">
+                <Link href="/home/diary">
+                  <Button className="bg-yellow text-purple font-bold w-full md:w-auto mt-10">
+                    Log Your First Dream Today
+                  </Button>
+                </Link>
+              </div>
             </div>
           </div>
 
@@ -159,26 +165,37 @@ export default async function Home() {
                 <li className="py-1">Add keyword tags for discoverability</li>
                 <li className="py-1">Comment and discuss with others</li>
               </ul>
-              <Link href="/home/diary">
-                <Button className="bg-yellow text-purple font-bold w-full md:w-auto">
-                  Share Your Dream
-                </Button>
-              </Link>
+              {/* Button visible only on desktop */}
+              <div className="hidden md:block">
+                <Link href="/home/diary">
+                  <Button className="bg-yellow text-purple font-bold w-full md:w-auto">
+                    Share Your Dream
+                  </Button>
+                </Link>
+              </div>
             </div>
             <div className="w-full md:w-1/2 p-0 md:p-4">
               <div className="relative w-full aspect-video border rounded-md border-purple shadow-lg">
                 <video
                   autoPlay
                   muted
+                  loop
                   playsInline
                   controls={false}
-                  loop
                   preload="auto"
                   className="w-full h-full rounded-md object-cover"
                 >
                   <source src="/feature02.mp4" type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
+              </div>
+              {/* Button visible only on mobile */}
+              <div className="flex items-center justify-center mb-10 block md:hidden mt-10">
+                <Link href="/home/diary">
+                  <Button className="bg-yellow text-purple font-bold w-full md:w-auto">
+                    Share Your Dream
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
@@ -196,11 +213,14 @@ export default async function Home() {
                 <li className="py-1">Find shared dream experiences</li>
                 <li className="py-1">Connect over recurring symbols</li>
               </ul>
-              <Link href="/home/diary">
-                <Button className="bg-yellow text-purple font-bold w-full md:w-auto">
-                  See Connected Dreams
-                </Button>
-              </Link>
+              {/* Button visible only on desktop */}
+              <div className="hidden md:block">
+                <Link href="/home/diary">
+                  <Button className="bg-yellow text-purple font-bold w-full md:w-auto">
+                    See Connected Dreams
+                  </Button>
+                </Link>
+              </div>
             </div>
             <div className="w-full md:w-1/2 p-0 md:p-4">
               <img
@@ -208,6 +228,14 @@ export default async function Home() {
                 alt="Find Related Dreams Preview"
                 className="w-full h-auto"
               />
+              {/* Button visible only on mobile */}
+              <div className="flex items-center justify-center mb-10 block md:hidden mt-10">
+                <Link href="/home/diary">
+                  <Button className="bg-yellow text-purple font-bold w-full md:w-auto">
+                    See Connected Dreams
+                  </Button>
+                </Link>
+              </div>
             </div>
           </div>
 
@@ -224,11 +252,14 @@ export default async function Home() {
                 <li className="py-1">Ask ChatGPT specific questions</li>
                 <li className="py-1">Track emotional patterns</li>
               </ul>
-              <Link href="/home/diary">
-                <Button className="bg-yellow text-purple font-bold w-full md:w-auto">
-                  Analyze My Dream with AI
-                </Button>
-              </Link>
+              {/* Button visible only on desktop */}
+              <div className="hidden md:block">
+                <Link href="/home/diary">
+                  <Button className="bg-yellow text-purple font-bold w-full md:w-auto">
+                    Analyze My Dream with AI
+                  </Button>
+                </Link>
+              </div>
             </div>
             <div className="w-full md:w-1/2 p-0 md:p-4">
               <div className="relative w-full aspect-video border rounded-md border-purple shadow-lg">
@@ -244,6 +275,14 @@ export default async function Home() {
                   <source src="/feature004.mp4" type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
+              </div>
+              {/* Button visible only on mobile */}
+              <div className="flex items-center justify-center mb-10 block md:hidden mt-10">
+                <Link href="/home/diary">
+                  <Button className="bg-yellow text-purple font-bold w-full md:w-auto">
+                    Analyze My Dream with AI
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
@@ -261,11 +300,14 @@ export default async function Home() {
                 <li className="py-1">Customize with AI tools</li>
                 <li className="py-1">Share your creations</li>
               </ul>
-              <Link href="/home/diary">
-                <Button className="bg-yellow text-purple font-bold w-full md:w-auto">
-                  Create Dreamscape with AI
-                </Button>
-              </Link>
+              {/* Button visible only on desktop */}
+              <div className="hidden md:block">
+                <Link href="/home/diary">
+                  <Button className="bg-yellow text-purple font-bold w-full md:w-auto">
+                    Create Dreamscape with AI
+                  </Button>
+                </Link>
+              </div>
             </div>
             <div className="w-full md:w-1/2 p-0 md:p-4">
               <img
@@ -273,6 +315,14 @@ export default async function Home() {
                 alt="AI Dream Image Generator Preview"
                 className="w-full h-auto"
               />
+              {/* Button visible only on mobile */}
+              <div className="flex items-center justify-center mb-10 block md:hidden mt-10">
+                <Link href="/home/diary">
+                  <Button className="bg-yellow text-purple font-bold w-full md:w-auto">
+                    Create Dreamscape with AI
+                  </Button>
+                </Link>
+              </div>
             </div>
           </div>
 
