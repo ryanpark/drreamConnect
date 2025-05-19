@@ -28,7 +28,7 @@ export default async function Login(props: { searchParams: Promise<Message> }) {
       </div>
 
       <h1 className="text-2xl font-satoshi mb-10 pl-10 pr-10">
-        Explore, understand, and connect over dreams
+        Explore, understand, and connect over dream.
       </h1>
 
       <div className="p-10 rounded-md bg-darkPurple shadow-md relative">
