@@ -42,12 +42,9 @@ export default async function Login(props: { searchParams: Promise<Message> }) {
             />
           </div>
           <h1 className="text-2xl text-center">Sign in</h1>
-          <p className="text-sm text-foreground text-center mb-5">
+          <p className="text-sm  text-center mb-5">
             Don't have an account?{" "}
-            <Link
-              className="text-foreground font-medium underline"
-              href="/sign-up"
-            >
+            <Link className="font-medium underline" href="/sign-up">
               Sign up
             </Link>
           </p>
@@ -61,10 +58,7 @@ export default async function Login(props: { searchParams: Promise<Message> }) {
             />
             <div className="flex justify-between items-center">
               <Label htmlFor="password">Password</Label>
-              <Link
-                className="text-xs text-foreground underline"
-                href="/forgot-password"
-              >
+              <Link className="text-xs underline" href="/forgot-password">
                 Forgot Password?
               </Link>
             </div>
