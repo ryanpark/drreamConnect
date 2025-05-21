@@ -10,6 +10,8 @@ import { GeistSans } from "geist/font/sans";
 import localFont from "next/font/local";
 import { ThemeProvider } from "next-themes";
 import Link from "next/link";
+import Image from "next/image";
+
 import "./globals.css";
 
 const defaultUrl = process.env.VERCEL_URL
@@ -80,6 +82,15 @@ export default function RootLayout({
               </nav>
               <div className="flex flex-col gap-20 max-w-6xl sm:p-5 mt-10 sm:mt-0">
                 {children}
+              </div>
+
+              <div className="mb-12 mt-12 text-center flex justify-center">
+                <Image
+                  src="/dot.svg"
+                  width={44}
+                  height={44}
+                  alt="Picture of the author"
+                />
               </div>
 
               <footer className="w-full flex items-center justify-center border-t mx-auto text-center text-xs gap-8 py-16">
