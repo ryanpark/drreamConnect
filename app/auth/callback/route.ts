@@ -6,10 +6,9 @@ export async function GET(request: Request) {
   const code = searchParams.get("code"); // For OAuth flows
   const token = searchParams.get("token"); // For email confirmation
   const type = searchParams.get("type"); // e.g., 'signup'
-  const next = searchParams.get("next") ?? "/"; // Default to /welcome
 
   const supabase = await createClient();
-  console.log(supabase);
+
   // Handle OAuth flow (e.g., Google, Apple, Discord)
   if (code && type !== "signup") {
     const { error } = await supabase.auth.exchangeCodeForSession(code);
@@ -27,7 +26,6 @@ export async function GET(request: Request) {
       data: { session },
       error,
     } = await supabase.auth.getSession();
-    console.log(session);
     if (error || !session) {
       console.error("Session error:", error?.message);
       return NextResponse.redirect(`${origin}/auth/auth-code-error`);
@@ -38,13 +36,10 @@ export async function GET(request: Request) {
   const forwardedHost = request.headers.get("x-forwarded-host");
   const isLocalEnv = process.env.NODE_ENV === "development";
   if (isLocalEnv) {
-    console.log("isLocalEnv");
     return NextResponse.redirect(`${origin}${next}`);
   }
   if (forwardedHost) {
-    console.log("forwardedHost");
     return NextResponse.redirect(`https://${forwardedHost}${next}`);
   }
-  console.log(origin);
-  return NextResponse.redirect(`${origin}`);
+  return NextResponse.redirect(`${origin}/nick-name`);
 }
