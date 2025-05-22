@@ -13,10 +13,14 @@ export default async function NickName(props: {
         <h1 className="text-2xl font-medium">Choose your nick name</h1>
 
         <div className="flex flex-col gap-2 [&>input]:mb-3 mt-8">
-          <Label htmlFor="nick name">Nick Name</Label>
+          <Label htmlFor="nick name">Your Nick Name</Label>
           <Input name="nickName" placeholder="stellaLee" />
 
-          <SubmitButton pendingText="Signing In..." formAction={saveNickName}>
+          <SubmitButton
+            pendingText="Signing In..."
+            formAction={saveNickName}
+            className="bg-yellow text-purple font-bold md:w-auto inline-flex mt-4"
+          >
             Submit
           </SubmitButton>
         </div>

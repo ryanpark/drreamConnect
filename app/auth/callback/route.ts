@@ -6,7 +6,7 @@ export async function GET(request: Request) {
   const code = searchParams.get("code"); // For OAuth flows
   const token = searchParams.get("token"); // For email confirmation
   const type = searchParams.get("type"); // e.g., 'signup'
-  const next = searchParams.get("next") ?? "/welcome"; // Default to /welcome
+  const next = searchParams.get("next") ?? "/"; // Default to /welcome
 
   const supabase = await createClient();
 
