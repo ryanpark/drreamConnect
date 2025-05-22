@@ -1,6 +1,7 @@
 import { signUpAction } from "@/app/actions";
 import { FormMessage, Message } from "@/components/form-message";
 import { SubmitButton } from "@/components/submit-button";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Image from "next/image";
@@ -11,11 +12,18 @@ export default async function Signup(props: {
   searchParams: Promise<Message>;
 }) {
   const searchParams = await props.searchParams;
-  if ("message" in searchParams) {
+  if ("success" in searchParams) {
     return (
-      <div className="w-full flex-1 flex items-center h-screen sm:max-w-md justify-center gap-2 p-4">
-        <FormMessage message={searchParams} />
-      </div>
+      <>
+        <div className="w-full flex-1 flex items-center h-screen sm:max-w-md justify-center gap-2 p-4">
+          <FormMessage message={searchParams} />
+        </div>
+        <Link href="/dreams">
+          <Button className="bg-yellow text-purple font-bold w-full md:w-auto">
+            Explore Dreams
+          </Button>
+        </Link>
+      </>
     );
   }
 
