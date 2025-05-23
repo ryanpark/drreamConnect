@@ -529,6 +529,6 @@ export const analyseDream = async (content: string) => {
     return { analysis: completion.choices[0].message.content };
   } catch (error) {
     console.error("OpenAI Error:", error);
-    return { error: "Failed to analyze dream." };
+    return { error: error };
   }
 };
