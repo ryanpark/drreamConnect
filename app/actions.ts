@@ -511,7 +511,7 @@ export const analyseDream = async (content: string) => {
   }
   try {
     const completion = await openai.chat.completions.create({
-      model: "gpt-4o", // Updated to GPT-4o
+      model: "gpt-4o",
       messages: [
         {
           role: "system",
@@ -529,6 +529,9 @@ export const analyseDream = async (content: string) => {
     return { analysis: completion.choices[0].message.content };
   } catch (error) {
     console.error("OpenAI Error:", error);
-    return { error: error };
+    return {
+      error:
+        error instanceof Error ? error.message : "An unexpected error occurred",
+    };
   }
 };

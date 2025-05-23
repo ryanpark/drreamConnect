@@ -22,7 +22,7 @@ export function FormMessage({ message }: { message: Message }) {
       {"success" in message && (
         <div className="text-foreground flex bg-secondary-purple p-5 rounded-md mb-10">
           {" "}
-          <InfoIcon size={16} className="mt-0.5" />
+          <InfoIcon size={16} className="mt-0.5 mr-3" />
           {message.success}
         </div>
       )}
