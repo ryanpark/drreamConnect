@@ -8,12 +8,23 @@ export async function GET(request: Request) {
   const type = searchParams.get("type"); // e.g., 'signup'
 
   const supabase = await createClient();
+  const next = searchParams.get("next") ?? "/";
 
-  // Handle OAuth flow (e.g., Google, Apple, Discord)
   if (code && type !== "signup") {
+    const supabase = await createClient();
     const { error } = await supabase.auth.exchangeCodeForSession(code);
-    if (error) {
-      console.error("OAuth error:", error.message);
+    if (!error) {
+      const forwardedHost = request.headers.get("x-forwarded-host"); // original origin before load balancer
+      const isLocalEnv = process.env.NODE_ENV === "development";
+      if (isLocalEnv) {
+        // we can be sure that there is no load balancer in between, so no need to watch for X-Forwarded-Host
+        return NextResponse.redirect(`${origin}${next}`);
+      }
+      if (forwardedHost) {
+        return NextResponse.redirect(`https://${forwardedHost}${next}`);
+      }
+      return NextResponse.redirect(`${origin}${next}`);
+    } else {
       return NextResponse.redirect(`${origin}/auth/auth-code-error`);
     }
   }
