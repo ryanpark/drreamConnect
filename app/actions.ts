@@ -431,9 +431,10 @@ export const signOutAction = async () => {
   return redirect("/sign-in");
 };
 
-const defaultUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : "https://localhost:3000";
+const defaultUrl =
+  process.env.NODE_ENV === "development"
+    ? "https://localhost:3000"
+    : `https://${process.env.VERCEL_URL}`;
 
 export const signUpFacebookAction = async () => {
   const supabase = await createClient();
@@ -441,7 +442,7 @@ export const signUpFacebookAction = async () => {
     provider: "facebook",
     options: {
       // todo : replace local env with prod env
-      redirectTo: `${defaultUrl}auth/callback`,
+      redirectTo: `${defaultUrl}/auth/callback`,
     },
   });
   if (data.url) {
