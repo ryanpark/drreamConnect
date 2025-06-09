@@ -442,7 +442,7 @@ export const signUpFacebookAction = async () => {
     provider: "facebook",
     options: {
       // todo : replace local env with prod env
-      redirectTo: `${defaultUrl}/auth/callback`,
+      redirectTo: `https://www.dreamconnects.app/auth/callback`,
     },
   });
   if (data.url) {
@@ -456,7 +456,7 @@ export const signUpGoogleAction = async () => {
     provider: "google",
     options: {
       // todo : replace local env with prod env
-      redirectTo: `${defaultUrl}/auth/callback`,
+      redirectTo: `https://www.dreamconnects.app/auth/callback`,
     },
   });
   if (data.url) {
