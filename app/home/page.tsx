@@ -310,16 +310,25 @@ export default async function Home() {
               </div>
             </div>
             <div className="w-full md:w-1/2 p-0 md:p-4">
-              <img
-                src="https://placehold.co/588x318"
-                alt="AI Dream Image Generator Preview"
-                className="w-full h-auto"
-              />
+              <div className="relative w-full aspect-video border rounded-md border-purple shadow-lg">
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  controls={false}
+                  preload="auto"
+                  className="w-full h-full rounded-md object-cover"
+                >
+                  <source src="/feat5.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
               {/* Button visible only on mobile */}
               <div className="flex items-center justify-center mb-10 block md:hidden mt-10">
                 <Link href="/diary">
                   <Button className="bg-yellow text-purple font-bold w-full md:w-auto">
-                    Create Dreamscape with AI
+                    Analyze My Dream with AI
                   </Button>
                 </Link>
               </div>
