@@ -465,40 +465,61 @@ export const signUpGoogleAction = async () => {
 };
 
 export const generateAIimage = async (content: string) => {
-  const isValidate = hasMoreThanTenWords(content);
-  if (!isValidate) {
+  // Validate input
+  const isValid = hasMoreThanTenWords(content);
+  if (!isValid) {
     return {
       error: "Your dream is too short, more context please",
     };
   }
-  const url = "https://api.deepai.org/api/text2img";
 
+  // Ensure API key is set
   const apiKey = process.env.AI_IMAGE_KEY;
-
   if (!apiKey) {
     throw new Error("AI_IMAGE_KEY environment variable is not set");
   }
 
-  const resp = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "api-key": apiKey,
-    },
-    body: JSON.stringify({
-      text: content,
-    }),
-  });
-  const errorBody = await resp.text();
-  console.error("DeepAI error response:", errorBody);
-  if (!resp.ok) {
-    throw new Error("Failed to generate image from DeepAI API");
-  }
+  // DeepAI API endpoint
+  const url = "https://api.deepai.org/api/text2img";
 
-  const data = await resp.json();
+  try {
+    // Make the API request
+    const resp = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "api-key": apiKey,
+      },
+      body: JSON.stringify({
+        text: content,
+      }),
+    });
 
-  if (data) {
+    // Check if response is successful
+    if (!resp.ok) {
+      // Read error body as text (or JSON if DeepAI returns JSON errors)
+      const errorBody = await resp.text();
+      console.error("DeepAI error response:", {
+        status: resp.status,
+        statusText: resp.statusText,
+        body: errorBody,
+      });
+      throw new Error(`DeepAI API error: ${errorBody}`);
+    }
+
+    // Parse successful response as JSON
+    const data = await resp.json();
+
+    // Validate response structure
+    if (!data || !data.output_url) {
+      console.error("Invalid DeepAI response:", data);
+      throw new Error("DeepAI API returned invalid or empty response");
+    }
+
     return data.output_url;
+  } catch (error) {
+    console.error("Error in generateAIimage:", error);
+    throw error; // Re-throw for upstream handling
   }
 };
 

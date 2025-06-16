@@ -82,7 +82,7 @@ export default async function Home() {
             <ul>
               <li className="mb-4"> 🌟 Dream Diary</li>
               <li className="mb-4"> 🦄 Dream Sharing</li>
-              <li className="mb-4"> 👁️ Find Related Dreams</li>
+              {/* <li className="mb-4"> 👁️ Find Related Dreams</li> */}
               <li className="mb-4"> 🔮 AI Dream Analysis</li>
               <li className="mb-4"> 🖼️ AI Dream Image Generator</li>
             </ul>
@@ -119,7 +119,7 @@ export default async function Home() {
               </ul>
               {/* Button visible only on desktop */}
               <div className="flex items-center justify-center mb-10 md:block hidden">
-                <Link href="/home/diary">
+                <Link href="/diary">
                   <Button className="bg-yellow text-purple font-bold w-full md:w-auto">
                     Log Your First Dream Today
                   </Button>
@@ -143,7 +143,7 @@ export default async function Home() {
               </div>
               {/* Button visible only on mobile */}
               <div className="flex items-center justify-center mb-10 block md:hidden">
-                <Link href="/home/diary">
+                <Link href="/diary">
                   <Button className="bg-yellow text-purple font-bold w-full md:w-auto mt-10">
                     Log Your First Dream Today
                   </Button>
@@ -167,7 +167,7 @@ export default async function Home() {
               </ul>
               {/* Button visible only on desktop */}
               <div className="hidden md:block">
-                <Link href="/home/diary">
+                <Link href="/diary">
                   <Button className="bg-yellow text-purple font-bold w-full md:w-auto">
                     Share Your Dream
                   </Button>
@@ -191,7 +191,7 @@ export default async function Home() {
               </div>
               {/* Button visible only on mobile */}
               <div className="flex items-center justify-center mb-10 block md:hidden mt-10">
-                <Link href="/home/diary">
+                <Link href="/diary">
                   <Button className="bg-yellow text-purple font-bold w-full md:w-auto">
                     Share Your Dream
                   </Button>
@@ -200,7 +200,7 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="flex flex-col md:flex-row mb-28 md:mb-20 gap-6 px-5">
+          {/* <div className="flex flex-col md:flex-row mb-28 md:mb-20 gap-6 px-5">
             <div className="w-full md:w-1/2 p-0 md:p-4">
               <h3 className="text-xl md:text-2xl mb-2 font-satoshi">
                 👁️ Find Related Dreams
@@ -214,8 +214,8 @@ export default async function Home() {
                 <li className="py-1">Connect over recurring symbols</li>
               </ul>
               {/* Button visible only on desktop */}
-              <div className="hidden md:block">
-                <Link href="/home/diary">
+              {/* <div className="hidden md:block">
+                <Link href="/diary">
                   <Button className="bg-yellow text-purple font-bold w-full md:w-auto">
                     See Connected Dreams
                   </Button>
@@ -228,16 +228,16 @@ export default async function Home() {
                 alt="Find Related Dreams Preview"
                 className="w-full h-auto"
               />
-              {/* Button visible only on mobile */}
+            
               <div className="flex items-center justify-center mb-10 block md:hidden mt-10">
-                <Link href="/home/diary">
+                <Link href="/diary">
                   <Button className="bg-yellow text-purple font-bold w-full md:w-auto">
                     See Connected Dreams
                   </Button>
                 </Link>
               </div>
             </div>
-          </div>
+          </div> */} 
 
           <div className="flex flex-col md:flex-row mb-28 md:mb-20 gap-6 px-5">
             <div className="w-full md:w-1/2 p-0 md:p-4">
@@ -254,7 +254,7 @@ export default async function Home() {
               </ul>
               {/* Button visible only on desktop */}
               <div className="hidden md:block">
-                <Link href="/home/diary">
+                <Link href="/diary">
                   <Button className="bg-yellow text-purple font-bold w-full md:w-auto">
                     Analyze My Dream with AI
                   </Button>
@@ -278,7 +278,7 @@ export default async function Home() {
               </div>
               {/* Button visible only on mobile */}
               <div className="flex items-center justify-center mb-10 block md:hidden mt-10">
-                <Link href="/home/diary">
+                <Link href="/diary">
                   <Button className="bg-yellow text-purple font-bold w-full md:w-auto">
                     Analyze My Dream with AI
                   </Button>
@@ -302,7 +302,7 @@ export default async function Home() {
               </ul>
               {/* Button visible only on desktop */}
               <div className="hidden md:block">
-                <Link href="/home/diary">
+                <Link href="/diary">
                   <Button className="bg-yellow text-purple font-bold w-full md:w-auto">
                     Create Dreamscape with AI
                   </Button>
@@ -317,7 +317,7 @@ export default async function Home() {
               />
               {/* Button visible only on mobile */}
               <div className="flex items-center justify-center mb-10 block md:hidden mt-10">
-                <Link href="/home/diary">
+                <Link href="/diary">
                   <Button className="bg-yellow text-purple font-bold w-full md:w-auto">
                     Create Dreamscape with AI
                   </Button>
