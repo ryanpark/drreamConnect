@@ -3,7 +3,7 @@ import { EnvVarWarning } from "@/components/env-var-warning";
 import Logo from "@/components/ui/Logo";
 
 import HeaderAuth from "@/components/header-auth";
-import { ThemeSwitcher } from "@/components/theme-switcher";
+import { Analytics } from '@vercel/analytics/next';
 import { hasEnvVars } from "@/utils/supabase/check-env-vars";
 import { GeistSans } from "geist/font/sans";
 
@@ -20,6 +20,7 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata = {
   metadataBase: new URL(defaultUrl),
+  themeColor: '#1fb6ff',
   title: "DreamConnect – Explore, Share, and Understand Your Dreams",
   description:
     "Discover the hidden meanings behind your dreams with DreamConnect. Keep a private dream journal, connect with a like-minded community, and gain AI-driven insights—all in a secure, privacy-focused environment. Start your dream journey today!",
@@ -82,6 +83,7 @@ export default function RootLayout({
               </nav>
               <div className="flex flex-col gap-20 max-w-6xl sm:p-5 mt-10 sm:mt-0">
                 {children}
+                <Analytics />
               </div>
 
               <div className="mb-12 mt-12 text-center flex justify-center">
