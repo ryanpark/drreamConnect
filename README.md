@@ -31,3 +31,5 @@ DreamConnects aims to provide a secure, privacy-focused environment for users to
 www.dreamconnects.app
 
 ## Stacks
+
+nextjs, supabase, tailwind, radix, typescript and react 
