@@ -1,6 +1,7 @@
 import DeployButton from "@/components/deploy-button";
 import { EnvVarWarning } from "@/components/env-var-warning";
 import Logo from "@/components/ui/Logo";
+import type { Viewport } from 'next'
 
 import HeaderAuth from "@/components/header-auth";
 import { Analytics } from '@vercel/analytics/next';
@@ -18,9 +19,15 @@ const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : "https://localhost:3000";
 
+
+export const viewport: Viewport = {
+  themeColor: '#ffbb00',
+  maximumScale: 1,
+}
+ 
+
 export const metadata = {
   metadataBase: new URL(defaultUrl),
-  themeColor: '#1fb6ff',
   title: "DreamConnect – Explore, Share, and Understand Your Dreams",
   description:
     "Discover the hidden meanings behind your dreams with DreamConnect. Keep a private dream journal, connect with a like-minded community, and gain AI-driven insights—all in a secure, privacy-focused environment. Start your dream journey today!",
