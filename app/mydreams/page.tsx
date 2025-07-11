@@ -18,10 +18,27 @@ export default async function Mydreams() {
     .select("*")
     .eq("email", user?.email)
     .order("created_at", { ascending: false });
-
-  if (!user) {
-    return redirect("/sign-in");
-  }
+ 
+   
+   if (!user || !user.user_metadata) {
+     return <div>No user metadata available.</div>;
+   }
+ 
+   const { email } = user;
+ 
+   const { data } = await supabase
+     .from("profile")
+     .select("nick_name, avatar")
+     .eq("email", email)
+     .single();
+  
+    if (!data?.nick_name) {
+      return redirect("/nick-name");
+    }
+    
+    if (!user) {
+      return redirect("/sign-in");
+    }
 
   return (
     <div className="flex-1 w-full flex flex-col gap-12">

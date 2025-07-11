@@ -1,4 +1,5 @@
 import { createClient } from "@/utils/supabase/server";
+import { redirect } from "next/navigation";
 import EditProfile from "@/components/profile/EditProfile";
 import Avatar from "@/components/avatar/Avatar";
 import Link from "next/link";
@@ -19,6 +20,7 @@ export default async function Profile({
     data: { user },
   } = await supabase.auth.getUser();
 
+  
   if (!user || !user.user_metadata) {
     return <div>No user metadata available.</div>;
   }
@@ -30,9 +32,10 @@ export default async function Profile({
     .select("nick_name, avatar")
     .eq("email", user?.email)
     .single();
+    
 
-  if (error || !data) {
-    return <div>Error loading profile data.</div>;
+  if (!data || error) {
+     redirect('/nick-name');
   }
 
   const { nick_name, avatar } = data as { nick_name: string; avatar: string };
