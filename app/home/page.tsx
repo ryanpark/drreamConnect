@@ -3,6 +3,39 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
+export const metadata = {
+  title: "DreamConnect | Dream, Share, and Discover Your Dreams",
+  description:
+    "DreamConnect is your platform to journal, share, and analyze dreams with AI-powered insights. Join a community passionate about dream exploration and self-discovery.",
+  openGraph: {
+    title: "DreamConnect | Dream, Share, and Discover Your Dreams",
+    description:
+      "DreamConnect is your platform to journal, share, and analyze dreams with AI-powered insights. Join a community passionate about dream exploration and self-discovery.",
+    url: "https://dreamconnect.com/", // Update to your real URL
+    siteName: "DreamConnect",
+    images: [
+      {
+        url: "/opengraph-image.png", // Place a relevant image in public/
+        width: 1200,
+        height: 630,
+        alt: "DreamConnect Hero Image",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "DreamConnect | Dream, Share, and Discover Your Dreams",
+    description:
+      "DreamConnect is your platform to journal, share, and analyze dreams with AI-powered insights. Join a community passionate about dream exploration and self-discovery.",
+    images: [
+      "/twitter-image.png" // Place a relevant image in public/
+    ],
+    creator: "@dreamconnect", // Update to your Twitter handle
+  },
+};
+
 export default async function Home() {
   return (
     <div className="flex-1 w-full flex flex-col gap-8 md:gap-12">
