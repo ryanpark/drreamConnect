@@ -15,7 +15,7 @@ export const metadata = {
     siteName: "DreamConnect",
     images: [
       {
-        url: "/opengraph-image.png", // Place a relevant image in public/
+        url: "/hero.png", // Place a relevant image in public/
         width: 1200,
         height: 630,
         alt: "DreamConnect Hero Image",
@@ -30,7 +30,7 @@ export const metadata = {
     description:
       "DreamConnect is your platform to journal, share, and analyze dreams with AI-powered insights. Join a community passionate about dream exploration and self-discovery.",
     images: [
-      "/twitter-image.png" // Place a relevant image in public/
+      "/hero.png" // Place a relevant image in public/
     ],
     creator: "@dreamconnect", // Update to your Twitter handle
   },
