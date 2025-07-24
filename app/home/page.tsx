@@ -15,7 +15,7 @@ export const metadata = {
     siteName: "DreamConnect",
     images: [
       {
-        url: "/hero.png", // Place a relevant image in public/
+        url: "https://t1.daumcdn.net/top/favicon/20241223/daum_og.png", // Place a relevant image in public/
         width: 1200,
         height: 630,
         alt: "DreamConnect Hero Image",
